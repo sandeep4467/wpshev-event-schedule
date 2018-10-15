@@ -1,3 +1,77 @@
+@font-face {
+	font-family: 'Myriad Pro italic';
+	src: url('../fonts/MyriadPro-It.woff2') format('woff2'), url('../fonts/MyriadPro-It.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Myriad Pro BoldCond';
+	src: url('../fonts/MyriadPro-BoldCond.woff2') format('woff2'), url('../fonts/MyriadPro-BoldCond.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad Pro BoldCondIt';
+	src: url('../fonts/MyriadPro-BoldCondIt.woff2') format('woff2'), url('../fonts/MyriadPro-BoldCondIt.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Myriad Pro Bold';
+	src: url('../fonts/MyriadPro-Bold.woff2') format('woff2'), url('../fonts/MyriadPro-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad Pro BoldIt';
+	src: url('../fonts/MyriadPro-BoldIt.woff2') format('woff2'), url('../fonts/MyriadPro-BoldIt.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Myriad Pro Cond';
+	src: url('../fonts/MyriadPro-Cond.woff2') format('woff2'), url('../fonts/MyriadPro-Cond.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad Pro Regular';
+	src: url('../fonts/MyriadPro-Regular.woff2') format('woff2'), url('../fonts/MyriadPro-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad Pro Semibold';
+	src: url('../fonts/MyriadPro-Semibold.woff2') format('woff2'), url('../fonts/MyriadPro-Semibold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Myriad Pro SemiboldIt';
+	src: url('../fonts/MyriadPro-SemiboldIt.woff2') format('woff2'), url('../fonts/MyriadPro-SemiboldIt.woff') format('woff');
+	font-weight: 600;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Myriad Pro CondIt';
+	src: url('../fonts/MyriadPro-CondIt.woff2') format('woff2'), url('../fonts/MyriadPro-CondIt.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+body {
+	font-family: 'Myriad Pro Regular' !important;
+}
+
 /* Styles for dialog window */
 #small-dialog, .white-popup {
 	background: white;
@@ -125,6 +199,7 @@
 
 .ev-form-row {
 	margin-bottom: 10px;
+	position: relative;
 }
 
 .ev-form-inline {
@@ -138,6 +213,7 @@
 .ev-form-row .ev-form-inline:nth-child(2n+2) {
 	margin-right: 0;
 }
+
 .wpshev-popup-outer {
 	top: 0;
 	left: 0;
@@ -146,14 +222,15 @@
 	z-index: 1043;
 	position: fixed;
 	outline: 0 !important;
-	-webkit-backface-visibility: hidden; 
-	display: none; 
+	-webkit-backface-visibility: hidden;
+	display: none;
 	overflow: hidden auto;
 }
+
 .wpshev-custom-popup {
-	width: 1024px;
+	width: 853px;
 	position: relative;
-	background: #fff;
+	background: #222c3c;
 	left: 0;
 	right: 0;
 	margin: auto;
@@ -162,22 +239,731 @@
 	max-width: 90%;
 	top: 10%;
 }
+
 .wpshev-custom-popup-overlay {
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.7);
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	right: 0;
-	left: 0; 
+	left: 0;
 	z-index: 1042;
 	display: none;
 }
+
 #wpshev-loader {
 	text-align: center;
 }
-#wpshev-loader span{
+
+#wpshev-loader span {
 	display: block;
 }
+
 #wpshev-loader img {
 	width: 119px;
+}
+
+/*Admin Dashboard*/
+.white-popup {
+	position: relative;
+	background: #FFF;
+	padding: 20px;
+	width: auto;
+	max-width: 500px;
+	margin: 20px auto;
+}
+
+.header-insturctor {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.ins-block {
+	width: 310px;
+	display: inline-block;
+	margin-right: 20px;
+	text-align: center;
+	border: 1px solid #ededed;
+	padding-top: 15px;
+}
+
+.ins-block .price {
+	color: #fff;
+	font-size: 31px;
+	margin-top: 20px;
+}
+
+.ins-block.ins-block1 .price {
+	background: #9b26af;
+}
+
+.ins-block.ins-block1 span {
+	display: block;
+	color: #9b26af;
+	margin-bottom: 20px;
+}
+
+.ins-block.ins-block2 .price {
+	background: #3e50b4;
+}
+
+.ins-block.ins-block2 span {
+	display: block;
+	color: #3e50b4;
+	margin-bottom: 20px;
+}
+
+.ins-block.ins-block3 .price {
+	background: #00a651;
+}
+
+.ins-block.ins-block3 span {
+	display: block;
+	color: #00a651;
+	margin-bottom: 20px;
+}
+
+.fitness-data-table {
+	border: 1px solid #ededed;
+	border-radius: 5px;
+}
+
+.fitness-table-header {
+	padding: 20px;
+}
+
+.fitness-table-header h2 span {
+	font-size: 12px;
+	color: #ccc;
+	vertical-align: middle;
+}
+
+.fitness-data-table table {
+	border-left: 0;
+	border-radius: 0;
+	border-color: #ededed;
+	margin-bottom: 0;
+}
+
+.fitness-data-table table tr td, .fitness-data-table table tr th {
+	border-color: #ededed;
+	padding: 10px 20px;
+}
+
+.fitness-data-table table tr td:last-child, .fitness-data-table table tr th:last-child {
+	border-right: 0;
+}
+
+.fitness-data-table thead {
+	background: #f5f8fa;
+}
+
+.fitness-data-table tr td small {
+	display: block;
+	color: #b3b2b2;
+}
+
+.fitness-data-table tr td a {
+	background: #34ac45;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 6px;
+	display: inline-block;
+	font-size: 13px;
+}
+
+.fitness-data-table tr td a.assigned {
+	background: #b33838;
+}
+
+/* jQuery UI Datepicker moving pixels fix */
+table.ui-datepicker-calendar {
+	border-collapse: separate;
+}
+
+.ui-datepicker-calendar td {
+	border: 1px solid transparent;
+}
+
+/* jQuery UI Datepicker hide datepicker helper */
+#ui-datepicker-div {
+	display: none;
+}
+
+/* jQuery UI Datepicker emphasis on selected dates */
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+	background: #743620 none;
+	color: white;
+}
+
+.fc .fc-toolbar h2 {
+	margin-top: 0;
+	clear: none;
+	font-size: 23.92px;
+	font-weight: normal;
+	margin-bottom: 27px;
+	margin-top: 2px;
+	color: #354052;
+}
+
+#calendar {
+	background: #eff3f6;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.fc table {
+	margin-bottom: 0 !important;
+}
+
+.fc-toolbar.fc-header-toolbar {
+	margin-bottom: 1em;
+	padding: 25px 25px 0 25px;
+	margin-bottom: 0;
+	border-bottom: 3px solid #9b26af;
+	box-shadow: none !important;
+	border-radius: 5px 5px 0 0;
+	border: 1px solid #cfd3d7;
+	border-bottom: 0;
+}
+
+.fc-head-container.fc-widget-header {
+	background: #f5f8fa;
+}
+
+.fc-head table {
+	margin-bottom: 0;
+}
+
+.fc-state-default {
+	border: 1px solid #dfe3e9;
+	background-color: #fff;
+	background-image: none !important;
+	margin-right: 10px !important;
+	border-radius: 0 !important;
+	font-size: 13.8px !important;
+	font-weight: normal;
+	box-shadow: none !important;
+	text-shadow: none !important;
+	padding: 10px 20px !important;
+	height: auto !important;
+	font-family: 'Myriad Pro Semibold';
+}
+
+.fc-state-active, .fc-state-down {
+	background-color: #2a9ef5 !important;
+	background-image: none;
+	box-shadow: none;
+	color: #fff;
+}
+
+.fc-state-default:hover {
+	background-color: #2a9ef5 !important;
+	color: #fff;
+}
+
+.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
+	border: 2px solid #2a9ef5;
+	width: 31px !important;
+	height: 31px !important;
+	display: block;
+	background-size: 100% !important;
+	padding: 0 !important;
+	background: none;
+	border-radius: 50% !important;
+	color: #2a9ef5;
+}
+
+.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
+	border: 2px solid #2a9ef5;
+	width: 31px !important;
+	height: 31px !important;
+	display: block;
+	background-size: 100% !important;
+	padding: 0 !important;
+	background: none;
+	border-radius: 50% !important;
+	color: #2a9ef5;
+}
+
+.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover, .fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover {
+	background: #fff !important;
+}
+
+.ev-popup {
+	background: #39b54a;
+	background: -moz-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: -webkit-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: linear-gradient(to right, #39b54a 0%, #33aa44 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39b54a', endColorstr='#33aa44', GradientType=1);
+	font-weight: normal;
+	font-size: 13.8px !important;
+	text-transform: capitalize;
+	width: 150px;
+	height: 36px !important;
+	border: 1px solid #249533;
+	border-radius: 3px;
+	font-family: 'Myriad Pro Semibold' !important;
+	margin-left: 30px !important;
+}
+
+.muscle-icon {
+	background: url('../img/muscle.png');
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	background-size: 100%;
+	vertical-align: middle;
+	margin-right: 4px;
+}
+
+.fc-day-header span {
+	font-size: 13.7px;
+	color: #7f8fa4;
+	font-family: 'Myriad Pro Semibold' !important;
+}
+
+.fc-day-number {
+	color: #7f8fa4;
+	font-size: 13.71px;
+}
+
+.ev-popup-close {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	border: 0;
+	text-decoration: none;
+	color: #fff;
+	background: none;
+	font-size: 22px;
+	padding: 0;
+}
+
+.wpshev-custom-popup h1 {
+	color: #fff;
+}
+
+.toe-wrapper {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.toe-wrapper {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding-top: 3px;
+}
+
+.meal-active, .rest-active, .workout-active {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: '';
+	width: auto;
+	padding: 0 10px;
+	height: 36px;
+	color: #fff;
+	text-align: center;
+	border-radius: 4px;
+	margin-right: 5px;
+	cursor: pointer;
+	text-transform: uppercase;
+	margin-left: 4px;
+	border: 0;
+}
+
+.meal-active {
+	background: #00a651;
+	background: -moz-linear-gradient(left, #00a651 0%, #07e573 100%);
+	background: -webkit-linear-gradient(left, #00a651 0%, #07e573 100%);
+	background: linear-gradient(to right, #00a651 0%, #07e573 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00a651', endColorstr='#07e573', GradientType=1);
+	border: 0;
+}
+
+.rest-active {
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ed7a14+0,f29f55+100 */
+	background: #ed7a14; /* Old browsers */
+	background: -moz-linear-gradient(left, #ed7a14 0%, #f29f55 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #ed7a14 0%, #f29f55 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #ed7a14 0%, #f29f55 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ed7a14', endColorstr='#f29f55', GradientType=1); /* IE6-9 */
+}
+
+.workout-active {
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ed145b+0,f34f85+100 */
+	background: #ed145b; /* Old browsers */
+	background: -moz-linear-gradient(left, #ed145b 0%, #f34f85 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #ed145b 0%, #f34f85 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #ed145b 0%, #f34f85 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.toe-label {
+	color: #7c8ca5;
+	font-size: 13.5px;
+	top: -2px;
+	position: relative;
+}
+
+#ev-add-event input[type="text"], #ev-add-event input[type="email"], #ev-add-event input[type="tel"] {
+	background: #273142;
+	border: 1px solid #313d4f;
+	font-size: 14px;
+	color: #fff;
+	padding: 12px;
+}
+
+#ev-add-event::placeholder {
+
+	/* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: #fff;
+	opacity: 1; /* Firefox */
+}
+
+#ev-add-event:-ms-input-placeholder {
+
+	/* Internet Explorer 10-11 */
+	color: #fff;
+}
+
+#ev-add-event::-ms-input-placeholder {
+
+	/* Microsoft Edge */
+	color: #fff;
+}
+
+/* The container */
+.checkbox-container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+	background-color: #1bb934;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+	display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+	left: 10px;
+	top: 6px;
+	width: 6px;
+	height: 12px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.checkbox-container {
+	color: #fff;
+	font-size: 14px;
+	display: inline-block;
+	margin-left: 19px;
+}
+
+.custom-checkbox #event-start-time {
+	width: 60%;
+	display: inline-block;
+}
+
+#event_title {
+	padding-right: 208px !important;
+}
+
+#ev-add-event input[type="submit"] {
+	background: #38b349;
+	float: right;
+	font-size: 13.8px;
+	font-weight: normal;
+	text-transform: capitalize;
+}
+
+#ev-add-event label {
+	color: #fff;
+}
+
+#wp-kv_frontend_editor-wrap {
+
+	/* position: relative; */
+	margin-top: -27px;
+}
+
+.ev-form-row.wp-editor {
+	margin-top: 22px;
+}
+
+.ui-widget-header {
+	border: 0;
+	background: #f1f1f1;
+	font-weight: normal;
+	font-size: 14px;
+	border-bottom: 0;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 0;
+	background: #fff;
+	font-size: 14px;
+}
+
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+	background: #38b349;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	border: 0;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+	border: 0;
+	background: #f1f1f1;
+	font-weight: normal;
+	color: #212121;
+}
+
+table.ui-datepicker-calendar {
+	border-collapse: separate;
+	border: 0;
+}
+
+#chat-section {
+	margin-top: 100px;
+	border: 1px solid #e6e9ec;
+}
+
+.chat-left {
+	border-right: 1px solid #e6e9ec;
+	border-bottom: 1px solid #e6e9ec;
+	float: left;
+	width: 37%;
+}
+.chat-left .user-img {
+	float: left;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+	margin-right: 18px;
+}
+.chat-left .user-img img {
+}
+.chat-right {
+	float: left;
+	width: 63%;
+}
+
+.chat-repeater {
+	margin-bottom: 22px;
+}
+.user_name {
+	color: #2399f1;
+}
+.chat-left .status {
+	background: #2399f1;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 6px;
+}
+.chat-left p{
+	margin-bottom: 0;
+}
+.inner-left-chat {
+	border-left: 3px solid #2399f1;
+	padding: 15px 20px;
+}
+#client-information {
+	padding: 15px 20px;
+	border-top: 1px solid #e6e9ec;
+}
+#client-information h2 {
+	font-size: 27px;
+	color: #354052;
+	font-weight: 300;
+}
+.info {
+	color: #354052;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+.info label {
+	font-size: 14px;
+	color: #354052;
+	display: block;
+	border-top: 1px solid #e6e9ec;
+	font-family: 'Myriad Pro Semibold';
+}
+.inline-info .info {
+	display: inline-block;
+	width: 33%;
+	float: left;
+	padding-right: 8%;
+}
+.inline-info .info:nth-child(1) {
+	width: 30%;
+}
+.inline-info .info:nth-child(2) {
+	width: 48%;
+}
+.inline-info .info:nth-child(3) {
+	width: 22%;
+}
+.inline-info .info:last-child {
+	padding-right: 0;
+}
+#user-chat {
+	max-height: 570px;
+	overflow-y: auto;
+	margin-bottom: 30px;
+}
+#send, #new-message {
+	background: #2097ef;
+	text-transform: capitalize;
+	width: 200px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+#new-message, #send {
+	float: right;
+}
+.chat-right{
+	position: relative;
+	height: 839px;
+}
+.chat-footer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: #ffffff;
+	border-top: 1px solid #e6e9ec;
+}
+.bottom-actions {
+	background: #046fbf;
+	padding: 20px 3%;
+}
+#chat-message {
+	margin: 0 3%;
+	width: 94%;
+	margin-bottom: 21px;
+	margin-top: 21px;
+	border: 1px solid #e6e9ec;
+	background: #fff;
+	resize: vertical;
+	font-size: 12px;
+}
+#cancel {
+	background: #f44336;
+	border-radius: 5px;
+}
+#send[disabled] {
+	background: #d6d7d6;
+	opacity: 1;
+}
+#user-chat .chat-repeater {
+	float: left;
+	width: 100%;
+}
+.chat-repeater .user-img {
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin-right: 14px;
+	float: left;
+}
+.chat-text {
+	float: left;
+	width: 80%;
+}
+.user-info {
+	font-size: 16px;
+	color: #585d68;
+}
+.user-info strong {
+	color: #7f8fa4;
+	font-size: 12px;
+	font-size: ;
+	font-weight: normal;
+}
+.chat-repeater p {
+	margin: 0;
+	font-size: 14px;
+	color: #585d68;
+}
+#chat-window {
+	padding: 0 3%;
+}
+.user-status-right .user_name {
+	color: #585d68;
+}
+.user-status-right {
+	padding: 20px 3%;
+	border-bottom: 1px solid #e6e9ec;
+}
+.user-status-right .status {
+	background: #ccc;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-left: 5px;
+}
+.user-status-right .status.online {
+	background: #1bb934;
 }

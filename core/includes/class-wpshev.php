@@ -22,7 +22,6 @@ final class WpScheduleEvent
     public function init_hooks(){
         register_activation_hook( WPSHEV_PLUGIN_FILE, array( 'WPSHEV_Activate', 'install' ) );
         add_action( 'init', array('WPSHEV_Shortcodes', 'init') );
-
         // AJAX hooks
         add_action('wp_ajax_ev_add_event', array('wpshevEvent', 'add_event') ); 
         add_action('wp_ajax_nopriv_ev_add_event', array('wpshevEvent', 'add_event') ); 
@@ -32,6 +31,18 @@ final class WpScheduleEvent
         add_action('wp_ajax_nopriv_ev_get_event', array('wpshevEvent', 'get_event') ); 
         add_action('wp_ajax_ev_delete_event', array('wpshevEvent', 'delete_event') ); 
         add_action('wp_ajax_nopriv_ev_delete_event', array('wpshevEvent', 'delete_event') ); 
+        
+        add_action('wp_ajax_ev_assign_instructor', array('wpshevAjax', 'assign_instructor') ); 
+        add_action('wp_ajax_nopriv_ev_assign_instructor', array('wpshevAjax', 'assign_instructor') ); 
+
+        add_action('wp_ajax_add_chat', array('wpshevChat', 'add_chat') ); 
+        add_action('wp_ajax_nopriv_add_chat', array('wpshevChat', 'add_chat') ); 
+
+        add_action('wp_ajax_load_chat', array('wpshevChat', 'load_chat') ); 
+        add_action('wp_ajax_nopriv_load_chat', array('wpshevChat', 'load_chat') ); 
+        
+        add_action('wp_ajax_refresh_chat', array('wpshevChat', 'refresh_chat') ); 
+        add_action('wp_ajax_nopriv_refresh_chat', array('wpshevChat', 'refresh_chat') );         
     }
     /*
     * Define Constants
@@ -66,9 +77,13 @@ final class WpScheduleEvent
     }
     public function wpshev_includes(){
         include_once WPSHEV_ABSPATH . 'core/includes/class-wpshev-activate.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/ajax/wpshev_chat.php';
         include_once WPSHEV_ABSPATH . 'core/includes/wpshev_admin_scripts.php';
         include_once WPSHEV_ABSPATH . 'core/includes/wpshev_frontend_scripts.php';
         include_once WPSHEV_ABSPATH . 'core/includes/class-wpshev-shortcodes.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/class-wpshev-admin-dashboard.php';
         include_once WPSHEV_ABSPATH . 'core/includes/ajax/wpshev_event.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/ajax/wpshev_ajax.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/class-helpers.php';
     }
 }

@@ -66,10 +66,28 @@ class wpshevFrontEndScripts
            'ver'=> '1.6.3',
            'in_footer'=>true
           ),
+          'multiDatesPicker' => array(
+           'src' => self::get_asset_url('core/assets/js/jquery-ui.multidatespicker.js'),
+           'deps'=> array('jquery'),
+           'ver'=> '1.6.6',
+           'in_footer'=>true
+          ),
           'jquery-confirm' => array(
            'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js',
            'deps'=> array('jquery'),
            'ver'=> '3.3.0',
+           'in_footer'=>true
+          ),
+          'admin-dashboard' => array(
+           'src' => self::get_asset_url('core/js/admin-dashboard.js'),
+           'deps'=> array('jquery'),
+           'ver'=> '1.0.0',
+           'in_footer'=>true
+          ),
+          'toastr' => array(
+           'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js',
+           'deps'=> array('jquery'),
+           'ver'=> '1.3.2',
            'in_footer'=>true
           ),
           'scripts' => array(
@@ -127,6 +145,12 @@ class wpshevFrontEndScripts
           'version'=>'3.3.0',
           'has_rtl' => false
          ),
+         'toastr' => array(
+          'src' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css',
+          'deps' => array(),
+          'version'=>'1.3.2',
+          'has_rtl' => false
+         ),
          'jquery-ui' => array(
           'src' => 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css',
           'deps' => array(),
@@ -175,7 +199,11 @@ class wpshevFrontEndScripts
   }
   public static function on_demand_localize_script($handle, $data)
   { 
-     self::localize_script('wpshev-ajax-handler', $data);
+     self::localize_script($handle, $data);
+  }
+  public static function on_demand_css($handle)
+  { 
+     self::enqueue_style($handle);
   }
 	public static function load_scripts(){
 
@@ -189,24 +217,18 @@ class wpshevFrontEndScripts
     
     self::enqueue_script('moment-js');
 		self::enqueue_script('fullcalendar');
-
-    $data = array(
-         'admin_url'=> admin_url( 'admin-ajax.php' ),
-         'site_url' => get_site_url(),
-         'ajax_nonce' => wp_create_nonce('schedule-ajax-security-nonce')
-    );
-		self::localize_script('wpshev-ajax-handler', $data);
-
     self::enqueue_script('magnific');
     self::enqueue_script('timepicker');
+    self::enqueue_script('multiDatesPicker');
     self::enqueue_script('jquery-confirm');
-   
+    self::enqueue_script('toastr');
     //Enqueue CSS
     self::enqueue_style( 'jquery-ui' );  
     self::enqueue_style('fullcalendar');
     self::enqueue_style('magnific-css');
     self::enqueue_style( 'timepicker-css' ); 
     self::enqueue_style( 'jquery-confirm' ); 
+    self::enqueue_style( 'toastr' ); 
 		self::enqueue_style('wpshev-css');
 	}
 

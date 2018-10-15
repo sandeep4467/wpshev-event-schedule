@@ -10,13 +10,15 @@ if (!defined('ABSPATH')) {
 class wpshevEvent
 {
 	public function add_event(){
+
+
 		try {
 			if (!isset($_POST['data'])) {
 				throw new Exception("Error Processing Request", 1);
 			}
 
-		    $str = $_POST['data'];
-	        parse_str($str, $data);
+      $str = $_POST['data'];
+      parse_str($str, $data);
 
 			if ($data['client_id'] == '') {
 				throw new Exception("Error: Client ID is required.", 1);
@@ -26,32 +28,30 @@ class wpshevEvent
 				throw new Exception("Error: Event title is required.", 1);
 			}
 			if ($data['event-start-date'] == '') {
-				throw new Exception("Error: Event start date is empty.", 1);
+				throw new Exception("Error: Event date is empty.", 1);
 			}
-			if ($data['event-end-date'] == '') {
-				throw new Exception("Error: Event end date is empty.", 1);
+			if ($data['event-start-time'] == '') {
+				throw new Exception("Error: Event time is empty.", 1);
 			}
+      
+            global $wpdb;
+            $tblname = $wpdb->prefix . 'wpshev_events';
+            $event_time = strtotime($data['event-start-time']); 
 
-      $date1 = new DateTime($data['event-start-date']);
-      $date2 = new DateTime($data['event-end-date']);
+            $dates = explode(',', $data['event-start-date']);
+            foreach ($dates as $date) {
+            $event_date = strtotime($date);
 
-      if ($date1 > $date2) {
-        throw new Exception("End Date must be greater than start date.", 1);  
-      }
-
-      global $wpdb;
-      $tblname = $wpdb->prefix . 'wpshev_events';
-			$start_date_time = strtotime($data['event-start-date']); 
-			$end_date_time = strtotime($data['event-end-date']); 
-
-            $insert = $wpdb->insert(
+            $insert =
+             $wpdb->insert(
               $tblname,
               array(
                'created_date' => current_time( 'mysql' ),
                'last_updated_date' => current_time( 'mysql' ),
                'title' => $data['event_title'],
-               'start_date_time' => date("Y-m-d H:i:s", $start_date_time),
-               'end_date_time' => date("Y-m-d H:i:s", $end_date_time),
+               'event_date' => date("Y-m-d", $event_date),
+               'event_time' => date('H:i:s', $event_time),
+               'event_type' => $data['type-of-event'], 
                'description' => $data['activeEditor'],
                'customer_id' => $data['client_id'],
                'instructor_id' => get_current_user_id(),
@@ -64,17 +64,19 @@ class wpshevEvent
                '%s',
                '%s',
                '%s',
+               '%s',
+               '%d',
                '%d',
                '%s'
               )
             );
-
             if (!$insert) {
             	if($wpdb->last_error !== '') :
                      throw new Exception("Error: Value not inserted." .  $wpdb->print_error(), 1); 
                  endif;	
                  throw new Exception("Error: Value not inserted.", 1); 
             }
+       }
 
 			$response = array(
              'status' => 'success',
@@ -99,7 +101,7 @@ class wpshevEvent
       if (!isset($_POST['customer_id'])) {
         throw new Exception("Error: Customer ID is required", 1);
       }
-      if (empty($_POST['customer_id'])) {
+      if (empty($_POST['instructor_id'])) {
          throw new Exception("Error: User ID is empty", 1);
       }
 
@@ -124,8 +126,9 @@ class wpshevEvent
             $data[] = array(
              'id' => $row->ID,
              'title' => $row->title,
-             'start_date_time' => $row->start_date_time,
-             'end_date_time' => $row->end_date_time
+             'event_date' => $row->event_date,
+             'event_time' => $row->event_time,
+             'event_type' => $row->event_type
             );
          }
        }
@@ -160,8 +163,8 @@ class wpshevEvent
        if ($result) {
           $data['id']= $result->ID;
           $data['title']= $result->title;
-          $data['start_date_time']= $result->start_date_time;
-          $data['end_date_time']= $result->end_date_time;
+          $data['event_date']= $result->event_date;
+          $data['event_time']= $result->event_time;
           $data['description']= stripslashes($result->description);
        }
 

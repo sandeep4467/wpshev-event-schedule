@@ -12,17 +12,14 @@
             $.ajax({
                 type: 'POST',
                 dataType: "json",
-                url: fitness_ajaxurl.ajaxurl,
+                url: wpshev_ajax_object.admin_url,
                 data: data,
                 success: function(response) {
                     if (response.status == 'success') {
 
                         var event_title = $("[name='event_title']").val();
                         var event_start = moment($("[name='event-start-date']").val()).format("YYYY-MM-DD[T]HH:mm:ss");
-                        var event_end = moment($("[name='event-end-date']").val()).format("YYYY-MM-DD[T]HH:mm:ss");
-
-                        alert(event_end);
-
+                        var event_time = moment($("[name='event-start-time']").val()).format("YYYY-MM-DD[T]HH:mm:ss");
                         var event={
                             'id': response.lastid,
                             'title': event_title,
@@ -83,10 +80,12 @@
             });
             return false;
         })
-
+ 
         /*Print Calender*/
-        var customer_id = $("input[name=customer_id]").val();
-        var instructor_id = $("input[name=user_id]").val();
+        var customer_id = $("input[name=client_id]").val();
+        var instructor_id = $("input[name=instructor_id]").val();
+
+        
         get_events_calender(customer_id, instructor_id, true);
 
         /*Delete Event*/
@@ -98,7 +97,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: "json",
-                url: fitness_ajaxurl.ajaxurl,
+                url: wpshev_ajax_object.admin_url,
                 data: data,
                 success: function(response) {
 
@@ -154,6 +153,192 @@
                 }
             });
         });
+        function clearInput(){
+           $('#chat-message').val(''); 
+        };
 
+     /*========= Chat Module =================*/
+
+    // function refresh_chat(){
+    //     var data = {
+    //             action: 'refresh_chat',
+    //             client_id: client_id,
+    //             instructor_id: instructor_id
+    //     };  
+    //     $.ajax({
+    //             type: 'POST',
+    //             dataType: "json",
+    //             url: wpshev_ajax_object.admin_url,
+    //             data: data,
+    //             success: function(response) {
+    //                 if (response.status == 'success') {
+
+                     
+    //                 }
+    //                 if (response.status == 'error') {
+    //                     $.toast({
+    //                         heading: 'Information',
+    //                         text: response.message,
+    //                         icon: 'info',
+    //                         loader: true,        // Change it to false to disable loader
+    //                         loaderBg: '#9EC600',  // To change the background
+    //                         position: {
+    //                                 right: 20,
+    //                                 top: 120
+    //                         },
+    //                         hideAfter: 5000   // in milli seconds
+    //                     })
+    //                 }
+
+
+
+    //             },
+    //             beforeSend: function() {
+    //                 $('.ajax-laoder').show();
+    //             },
+    //             complete: function() {
+    //                 $('.ajax-laoder').hide();
+    //             },
+    //             error: function(error) {
+    //                 $('.ajax-laoder').hide();
+    //                 console.info("Error AJAX not working: " + error);
+    //             }
+    //         });    
+    // }
+   
+
+
+    function load_chat(client_id, instructor_id){
+            var data = {
+                action: 'load_chat',
+                client_id: client_id,
+                instructor_id: instructor_id
+            };
+
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: wpshev_ajax_object.admin_url,
+                data: data,
+                success: function(response) {
+                    if (response.status == 'success') {
+                      $('#user-chat').html(response.data);
+                    }
+                },
+                beforeSend: function() {
+                    $('.ajax-laoder').show();
+                },
+                complete: function() {
+                    $('.ajax-laoder').hide();
+                },
+                error: function(error) {
+                    $('.ajax-laoder').hide();
+                    console.info("Error AJAX not working: " + error);
+                }
+            });
+    }
+
+    var client_id = $("input[name=client_id]").val();
+    var instructor_id = $("input[name=instructor_id]").val();
+    load_chat(client_id, instructor_id);
+
+
+
+
+    setInterval(function(){
+
+        load_chat(client_id, instructor_id);
+        $(".msg_container_base").stop().animate({
+            scrollTop: $(".msg_container_base")[0].scrollHeight
+            }, 1000);
+    }, 5000);
+     
+     function send_message(){
+          
+            var message = $("#chat-message").val();
+            var by = $("input[name=by]").val();
+            var name = $("input[name=user_name]").val();
+            var pic = $("input[name=user_pic]").val();
+
+            var html = '';
+            
+            html += '<div class="chat-repeater">';
+            html += '<figure class="user-img">';
+            html += '<img src="'+pic+'">';
+            html += '</figure>';
+            html += '<div class="chat-text">';
+            html += '<span class="user-info"> '+name+' <strong>Just Now</strong></span>';
+            html += '<p>'+message+'</p>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#user-chat').append(html);
+
+            clearInput();
+            $(".msg_container_base").stop().animate({
+            scrollTop: $(".msg_container_base")[0].scrollHeight
+            }, 1000);
+            var data = {
+                action: 'add_chat',
+                client_id: client_id,
+                instructor_id: instructor_id,
+                by: by,
+                message: message,
+                message_time: new Date()
+            };
+
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: wpshev_ajax_object.admin_url,
+                data: data,
+                success: function(response) {
+                    if (response.status == 'success') {
+
+                     
+                    }
+                    if (response.status == 'error') {
+                        $.toast({
+                            heading: 'Information',
+                            text: response.message,
+                            icon: 'info',
+                            loader: true,        // Change it to false to disable loader
+                            loaderBg: '#9EC600',  // To change the background
+                            position: {
+                                    right: 20,
+                                    top: 120
+                            },
+                            hideAfter: 5000   // in milli seconds
+                        })
+                    }
+
+
+
+                },
+                beforeSend: function() {
+                    $('.ajax-laoder').show();
+                },
+                complete: function() {
+                    $('.ajax-laoder').hide();
+                },
+                error: function(error) {
+                    $('.ajax-laoder').hide();
+                    console.info("Error AJAX not working: " + error);
+                }
+            });
+            return false;
+     }
+     // Chat AJAX
+     $('#send').click(function(e) {
+        e.preventDefault();
+        send_message();
+     });
+
+     $(document).keypress(function(e) {
+        if (e.ctrlKey && e.keyCode == 13) {
+            send_message();
+        }
+     });
+     /*========= Chat Module End =================*/
     });
 }(jQuery));

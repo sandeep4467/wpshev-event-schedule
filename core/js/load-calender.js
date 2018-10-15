@@ -1,5 +1,7 @@
 var $ = jQuery.noConflict();
 
+
+
 function load_single_event(id, editable) {
     var data = {
         action: 'ev_get_event',
@@ -8,7 +10,7 @@ function load_single_event(id, editable) {
     $.ajax({
         type: 'POST',
         dataType: "json",
-        url: fitness_ajaxurl.ajaxurl,
+        url: wpshev_ajax_object.admin_url,
         data: data,
         success: function(response) {
 
@@ -16,17 +18,17 @@ function load_single_event(id, editable) {
 
                 var id = response.data.id;
                 var title = response.data.title;
-                var start_date = moment(response.data.start_date_time).format("YYYY-MMMM-DD hh:mm A");
-                var end_date = moment(response.data.end_date_time).format("YYYY-MMMM-DD hh:mm A");
+                var event_date = moment(response.data.event_date).format("DD-MMMM-YYYY");
+                var time = moment(response.data.event_time).format("hh:mm A");
                 var content = response.data.description;
 
                 var html = '';
-                if (editable) {
+                if (editable != 'false') {
                     html += '<div class="event-popup-action"><button data-id="' + id + '" id="delete-event">Delete Event</button></div>';
                 }
                 html += '<h2>' + title + '</h2>';
-                html += '<span><strong>Start Date: </strong>' + start_date + '</span> ';
-                html += '<span><strong>End Date: </strong>' + end_date + '</span>';
+                html += '<span><strong>Date: </strong>' + event_date + '</span> ';
+                html += '<span><strong>Time: </strong>' + event_time + '</span> ';
                 html += '<div class="event-content">' + content + '</div>';
 
 
@@ -69,43 +71,65 @@ function load_single_event(id, editable) {
 
 function print_calender(obj, editable) {
 
-
     var events = new Array();
 
     var event_title = '';
     var event_start = '';
-    var event_end = '';
+
 
     $.each(obj, function(index, value) {
 
         id = obj[index].id;
         event_title = obj[index].title;
-        event_start = moment(obj[index].start_date_time).format("YYYY-MM-DD[T]HH:mm:ss");
-        event_end = moment(obj[index].end_date_time).format("YYYY-MM-DD[T]HH:mm:ss");
+        event_start = moment(obj[index].event_date).format("YYYY-MM-DD");
+        event_time = obj[index].event_time;
+        event_type = obj[index].event_type;
+
+
+        switch (event_type) {
+            case 'rest':
+                 event_color = '#ed7a14';
+                break;
+            case 'workout':
+                 event_color = '#ed145b';
+                break;
+            default:
+                 event_color = '#00a651';
+        }
 
         events.push({
             'id': id,
             'title': event_title,
-            'start': event_start,
-            'end': event_end,
+            'start': event_start + 'T' + event_time,
+            'color' :event_color
         });
     });
 
     var settings = {
         defaultView: 'month',
         header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
+            left: 'prev, title',
+            center: '',
+            right: 'month,agendaWeek,listWeek, next'
         },
-        eventLimit: true
+        eventLimit: true,
+        dayNamesShort: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        viewRender: function(view) {
+            $('.ev-popup').remove();
+            if (editable != 'false') {
+                $(".fc-left").append('<button class="ev-popup"><i class="muscle-icon"></i> Add New Event</button>');
+            }
+        }
     };
 
     if (!$.isEmptyObject(obj)) {
         settings['events'] = events;
-
+        timeFormat: 'H(:mm)',
         settings['eventClick'] = function(calEvent, jsEvent, view) {
-            load_single_event(calEvent.id, editable);
+                load_single_event(calEvent.id, wpshev_ajax_object.calender_editable);
+        },
+        settings['eventRender'] = function(event, element) {
+         
         }
     }
 
@@ -123,11 +147,11 @@ function get_events_calender(customer_id, instructor_id, editable) {
     $.ajax({
         type: 'POST',
         dataType: "json",
-        url: fitness_ajaxurl.ajaxurl,
+        url: wpshev_ajax_object.admin_url,
         data: data,
         success: function(response) {
             if (response.status == 'success') {
-                print_calender(response.data, editable);
+                print_calender(response.data, wpshev_ajax_object.calender_editable);
             }
             if (response.status == 'error') {
                 $.toast({
