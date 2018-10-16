@@ -21,7 +21,7 @@
 
 
     $('#event-start-date').multiDatesPicker({
-      dateFormat: "d-M-y",
+        dateFormat: "d-M-y"
     });
 
     $('#event-start-time').timepicker({

@@ -3,6 +3,7 @@
         global $wpdb;
         $query = "SELECT `instructor_id` FROM {$wpdb->prefix}instructor_data WHERE `assigned_client_id` = $client_id  AND `status` = 'assigned'";
         $results = $wpdb->get_row( $query, OBJECT );
+
         $instructor_id = $results->instructor_id;
         ?>
 
@@ -53,9 +54,8 @@
                     ?>
                     <img src="<?php echo $avatar; ?>">
                 </figure>
-                <span class="status"></span><span class="user_name"><?php echo $instructor->first_name . ' ' . $instructor->last_name; ?></span>
+                <span class="status" title="Offline"></span><span class="user_name"><?php echo $instructor->first_name . ' ' . $instructor->last_name; ?></span>
                 <div class="clear"></div>
-                <p>Funny comparison. so would the proper antivirus not slow down the internet as much or do you...</p>
                 </div>
                 <div id="client-information">
                     <h2>My Information <a class="info-edit" href="iump-account-page/?ihc_ap_menu=profile">Edit Information</a></h2>
@@ -108,7 +108,7 @@
             </div>
             <div class="chat-right">
                 <div class="user-status-right">
-                <span class="user_name"><?php echo $client->first_name . ' ' . $client->last_name; ?></span><span class="status"></span>    
+                <span class="user_name"><?php echo $instructor->first_name . ' ' . $instructor->last_name; ?></span><span class="status" title="Offline"></span>    
                 </div>
                 <div class="chat-window" id="chat-window">
                     <div class="user-chat msg_container_base" id="user-chat">
@@ -119,7 +119,7 @@
                         <textarea id="chat-message" placeholder="Type your message here..."></textarea>
                       <div class="bottom-actions">
                         <button id="cancel">Cancel</button>
-                        <button name="send" id="send" disabled="">New Message</button>
+                        <button name="send" id="send" disabled="">Send Message</button>
                       </div>
                     </div>
                 </div>
@@ -204,12 +204,15 @@
             }); 
             jQuery('#new-message').click(function(){
                 jQuery('.chat-footer').fadeIn();
+                jQuery('#user-chat').css('max-height' , '371px');
             });  
             jQuery('#cancel').click(function(){
                 jQuery('.chat-footer').fadeOut();
                 jQuery('#chat-message').val('');
                 jQuery('#send').prop("disabled", true);
+                jQuery('#user-chat').css('max-height' , '477px');
             });  
+
 
             jQuery('#chat-message').keyup(function(){
                if (jQuery('#chat-message').val() != '') {
@@ -218,4 +221,54 @@
                    jQuery('#send').prop("disabled", true);
                };
             });
+            /*Set own status*/ 
+            var data = {
+                action: 'user_status',
+                id: <?php echo get_current_user_id(); ?> 
+            };
+            jQuery.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                data: data
+            });
+
+            /*Check if instructior is online*/
+            function check_user_online(){
+                var data = {
+                    action: 'check_user_status',
+                    id: <?php echo $instructor_id; ?>
+                }
+                jQuery.ajax({
+                    type: 'POST',
+                    dataType: "json",
+                    url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                    data: data,
+                    success: function(response) {
+                      if (response.status == 1) {
+                        jQuery('#chat-section .status').addClass('online').prop('title', 'Online');
+                      }else{
+                        jQuery('#chat-section .status').removeClass('online').prop('title', 'Offline');; 
+                      }
+                    }
+                });        
+            }
+            check_user_online();
+
+            window.setInterval(function(){
+                check_user_online();
+            }, 5000);
+            /*Delete own staus on window close*/
+            window.onbeforeunload = function(){
+                            var data = {
+                                action: 'delete_user_status',
+                                id: <?php echo get_current_user_id(); ?> 
+                            };
+                            jQuery.ajax({
+                                type: 'POST',
+                                dataType: "json",
+                                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                                data: data
+                            });
+            }      
         </script>

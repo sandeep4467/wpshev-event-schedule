@@ -13,6 +13,7 @@ class wpshevEvent
 
 
 		try {
+
 			if (!isset($_POST['data'])) {
 				throw new Exception("Error Processing Request", 1);
 			}
@@ -30,13 +31,19 @@ class wpshevEvent
 			if ($data['event-start-date'] == '') {
 				throw new Exception("Error: Event date is empty.", 1);
 			}
-			if ($data['event-start-time'] == '') {
-				throw new Exception("Error: Event time is empty.", 1);
+			if ($data['event-start-time'] == '' && $data['all-day-event'] == '') {
+				throw new Exception("Error: Select specific time or all day checkbox.", 1);
 			}
       
             global $wpdb;
             $tblname = $wpdb->prefix . 'wpshev_events';
-            $event_time = strtotime($data['event-start-time']); 
+            $event_time = strtotime($data['event-start-time']);
+            $all_day = 0; 
+
+            if ($data['all-day-event'] != '') {
+              $event_time = '';
+              $all_day = 1;
+            }
 
             $dates = explode(',', $data['event-start-date']);
             foreach ($dates as $date) {
@@ -52,6 +59,7 @@ class wpshevEvent
                'event_date' => date("Y-m-d", $event_date),
                'event_time' => date('H:i:s', $event_time),
                'event_type' => $data['type-of-event'], 
+               'full_day' => $all_day,
                'description' => $data['activeEditor'],
                'customer_id' => $data['client_id'],
                'instructor_id' => get_current_user_id(),
@@ -64,6 +72,7 @@ class wpshevEvent
                '%s',
                '%s',
                '%s',
+               '%d',
                '%s',
                '%d',
                '%d',
@@ -127,6 +136,7 @@ class wpshevEvent
              'id' => $row->ID,
              'title' => $row->title,
              'event_date' => $row->event_date,
+             'full_day' => $row->full_day,
              'event_time' => $row->event_time,
              'event_type' => $row->event_type
             );
@@ -163,9 +173,11 @@ class wpshevEvent
        if ($result) {
           $data['id']= $result->ID;
           $data['title']= $result->title;
-          $data['event_date']= $result->event_date;
+          $data['full_day']= $result->full_day;
           $data['event_time']= $result->event_time;
+          $data['event_type']= $result->event_type;
           $data['description']= stripslashes($result->description);
+
        }
 
       $response = array(

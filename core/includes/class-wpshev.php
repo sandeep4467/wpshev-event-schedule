@@ -42,7 +42,16 @@ final class WpScheduleEvent
         add_action('wp_ajax_nopriv_load_chat', array('wpshevChat', 'load_chat') ); 
         
         add_action('wp_ajax_refresh_chat', array('wpshevChat', 'refresh_chat') ); 
-        add_action('wp_ajax_nopriv_refresh_chat', array('wpshevChat', 'refresh_chat') );         
+        add_action('wp_ajax_nopriv_refresh_chat', array('wpshevChat', 'refresh_chat') );
+
+        add_action('wp_ajax_user_status', array('wpshevChat', 'user_status') ); 
+        add_action('wp_ajax_nopriv_user_status', array('wpshevChat', 'user_status') );
+
+        add_action('wp_ajax_delete_user_status', array('wpshevChat', 'delete_user_status') ); 
+        add_action('wp_ajax_nopriv_delete_user_status', array('wpshevChat', 'delete_user_status') );    
+
+        add_action('wp_ajax_check_user_status', array('wpshevChat', 'check_user_status') ); 
+        add_action('wp_ajax_nopriv_check_user_status', array('wpshevChat', 'check_user_status') );          
     }
     /*
     * Define Constants

@@ -266,11 +266,67 @@ body {
 /*Admin Dashboard*/
 .white-popup {
 	position: relative;
-	background: #FFF;
-	padding: 20px;
-	width: auto;
-	max-width: 500px;
+	background: #222c3c;
+	padding: 20px 30px;
+	width: 853px;
+	max-width: 90%;
 	margin: 20px auto;
+	color: #fff;
+}
+
+.flag {
+	width: 10px;
+	height: 10px;
+	background: #ccc;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.flag.meal {
+	background: #00a651;
+}
+
+.flag.workout {
+	background: #ed145b;
+}
+
+.flag.rest {
+	background: #ed7a14;
+}
+
+.ui-datepicker-prev.ui-corner-all {
+	display: none;
+}
+.ui-datepicker-next.ui-corner-all {
+	display: none;
+}
+.white-popup h2 {
+	font-size: 32px;
+	display: inline-block;
+}
+
+#delete-event {
+	background: #f44336;
+	text-transform: capitalize;
+	padding: 0;
+	font-weight: normal;
+	font-size: 13px;
+	padding: 8px 10px;
+}
+
+.event-content {
+	margin-bottom: 14px;
+}
+
+.mfp-close-btn-in .mfp-close {
+	color: #636e7d;
+	font-weight: normal;
+}
+
+.mfp-close-btn-in .mfp-close:hover {
+	background: none;
+	color: #fff;
 }
 
 .header-insturctor {
@@ -785,10 +841,10 @@ table.ui-datepicker-calendar {
 
 .chat-left {
 	border-right: 1px solid #e6e9ec;
-	border-bottom: 1px solid #e6e9ec;
 	float: left;
 	width: 37%;
 }
+
 .chat-left .user-img {
 	float: left;
 	width: 50px;
@@ -799,8 +855,10 @@ table.ui-datepicker-calendar {
 	position: relative;
 	margin-right: 18px;
 }
+
 .chat-left .user-img img {
 }
+
 .chat-right {
 	float: left;
 	width: 63%;
@@ -809,9 +867,11 @@ table.ui-datepicker-calendar {
 .chat-repeater {
 	margin-bottom: 22px;
 }
+
 .user_name {
 	color: #2399f1;
 }
+
 .chat-left .status {
 	background: #2399f1;
 	width: 10px;
@@ -820,27 +880,38 @@ table.ui-datepicker-calendar {
 	display: inline-block;
 	margin-right: 6px;
 }
-.chat-left p{
+.chat-left .status.online {
+	background: #1bb934;
+}
+.info-edit {
+	font-size: 12px;
+}
+.chat-left p {
 	margin-bottom: 0;
 }
+
 .inner-left-chat {
 	border-left: 3px solid #2399f1;
 	padding: 15px 20px;
 }
+
 #client-information {
 	padding: 15px 20px;
 	border-top: 1px solid #e6e9ec;
 }
+
 #client-information h2 {
 	font-size: 27px;
 	color: #354052;
 	font-weight: 300;
 }
+
 .info {
 	color: #354052;
 	font-size: 14px;
 	margin-bottom: 20px;
 }
+
 .info label {
 	font-size: 14px;
 	color: #354052;
@@ -848,29 +919,36 @@ table.ui-datepicker-calendar {
 	border-top: 1px solid #e6e9ec;
 	font-family: 'Myriad Pro Semibold';
 }
+
 .inline-info .info {
 	display: inline-block;
 	width: 33%;
 	float: left;
 	padding-right: 8%;
 }
+
 .inline-info .info:nth-child(1) {
 	width: 30%;
 }
+
 .inline-info .info:nth-child(2) {
 	width: 48%;
 }
+
 .inline-info .info:nth-child(3) {
 	width: 22%;
 }
+
 .inline-info .info:last-child {
 	padding-right: 0;
 }
+
 #user-chat {
-	max-height: 570px;
+	max-height: 480px;
 	overflow-y: auto;
 	margin-bottom: 30px;
 }
+
 #send, #new-message {
 	background: #2097ef;
 	text-transform: capitalize;
@@ -878,12 +956,14 @@ table.ui-datepicker-calendar {
 	border-radius: 5px;
 	font-size: 14px;
 }
+
 #new-message, #send {
 	float: right;
 }
-.chat-right{
+
+.chat-right {
 	position: relative;
-	height: 839px;
+	height: 640px;
 }
 .chat-footer {
 	position: absolute;
@@ -892,10 +972,17 @@ table.ui-datepicker-calendar {
 	left: 0;
 	background: #ffffff;
 	border-top: 1px solid #e6e9ec;
+	border-left: 1px solid #e6e9ec;
+}
+#new-message {
+	margin-bottom: 25px;
 }
 .bottom-actions {
 	background: #046fbf;
 	padding: 20px 3%;
+}
+.fc-day-grid-event .fc-time:after {
+	content: " -";
 }
 #chat-message {
 	margin: 0 3%;
@@ -907,18 +994,22 @@ table.ui-datepicker-calendar {
 	resize: vertical;
 	font-size: 12px;
 }
+
 #cancel {
 	background: #f44336;
 	border-radius: 5px;
 }
+
 #send[disabled] {
 	background: #d6d7d6;
 	opacity: 1;
 }
+
 #user-chat .chat-repeater {
 	float: left;
 	width: 100%;
 }
+
 .chat-repeater .user-img {
 	width: 50px;
 	height: 50px;
@@ -927,35 +1018,43 @@ table.ui-datepicker-calendar {
 	margin-right: 14px;
 	float: left;
 }
+
 .chat-text {
 	float: left;
 	width: 80%;
 }
+
 .user-info {
 	font-size: 16px;
 	color: #585d68;
 }
+
 .user-info strong {
 	color: #7f8fa4;
 	font-size: 12px;
-	font-size: ;
+	font-size:;
 	font-weight: normal;
 }
+
 .chat-repeater p {
 	margin: 0;
 	font-size: 14px;
 	color: #585d68;
 }
+
 #chat-window {
 	padding: 0 3%;
 }
+
 .user-status-right .user_name {
 	color: #585d68;
 }
+
 .user-status-right {
 	padding: 20px 3%;
 	border-bottom: 1px solid #e6e9ec;
 }
+
 .user-status-right .status {
 	background: #ccc;
 	display: inline-block;
@@ -964,6 +1063,15 @@ table.ui-datepicker-calendar {
 	border-radius: 50%;
 	margin-left: 5px;
 }
+
 .user-status-right .status.online {
 	background: #1bb934;
 }
+.all-day-label {
+	font-weight: bold;
+}
+
+.fc-toolbar.fc-header-toolbar {
+	border-bottom: 3px solid #9b26af;
+}
+

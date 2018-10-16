@@ -12,12 +12,14 @@ class wpshevChat
 	public function add_chat(){
         try {
 
+            date_default_timezone_set("Asia/Singapore");
+            
             $client_id = $_POST['client_id'];
             $instructor_id = $_POST['instructor_id'];
             $message = $_POST['message'];
             $message_type = 'new';
             $by = $_POST['by'];
-            $message_time = $_POST['message_time'];
+            $message_time = date('Y-m-d H:i:s');
 
             global $wpdb;
             $tblname = $wpdb->prefix . 'wpshev_chat';
@@ -121,7 +123,7 @@ class wpshevChat
 
               $html .= '<div class="chat-repeater">
               <figure class="user-img"><img src="'.$avatar.'"></figure>
-              <div class="chat-text"><span class="user-info"> '.$user->first_name . ' ' . $user->last_name.' <strong>'.$row->message_time.'</strong></span>
+              <div class="chat-text"><span class="user-info"> '.$user->first_name . ' ' . $user->last_name.' <strong>'. date('d/m/y h:i A', strtotime($row->message_time)) .'</strong></span>
               <p>'.$row->messages.'</p></div></div>';
         }
       }
@@ -200,5 +202,48 @@ class wpshevChat
     } 
     echo json_encode( $response );
     wp_die();
+  }
+  public function user_status(){
+      global $wpdb;
+      $tblname = $wpdb->prefix . 'wpshev_user_chat_status';
+      $id  = $_POST['id'];
+      $insert =
+             $wpdb->insert(
+              $tblname,
+              array(
+               'user_id' => $id,
+              ),
+              array(
+               '%d'
+              )
+            );
+            if (!$insert) {
+              if($wpdb->last_error !== '') :
+                     throw new Exception("Error: Value not inserted." .  $wpdb->print_error(), 1); 
+                 endif; 
+            }
+    wp_die();
+  }
+
+  public function delete_user_status(){
+      global $wpdb;
+      $tblname = $wpdb->prefix . 'wpshev_user_chat_status';
+      $id  = $_POST['id'];
+      $wpdb->query( 'DELETE FROM `'.$tblname.'` WHERE `user_id` = '.$id.'' );
+      wp_die();
+  }
+
+  public function check_user_status(){
+      global $wpdb;
+      $tblname = $wpdb->prefix . 'wpshev_user_chat_status';
+      $id  = $_POST['id'];
+
+      $count = $wpdb->get_var( 'SELECT COUNT(*) FROM `'.$tblname.'` WHERE `user_id` = '.$id.'' );
+      if ($count > 0) {
+        echo json_encode( array('status' => 1 ) );
+      }else{
+        echo json_encode( array('status' => 0 ) );
+      }
+      wp_die();
   }
 }

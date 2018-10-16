@@ -1,7 +1,4 @@
 var $ = jQuery.noConflict();
-
-
-
 function load_single_event(id, editable) {
     var data = {
         action: 'ev_get_event',
@@ -15,21 +12,33 @@ function load_single_event(id, editable) {
         success: function(response) {
 
             if (response.status == 'success') {
+                var time = 'Full Day';
+                var html = '';
 
                 var id = response.data.id;
                 var title = response.data.title;
-                var event_date = moment(response.data.event_date).format("DD-MMMM-YYYY");
-                var time = moment(response.data.event_time).format("hh:mm A");
+                var full_day = response.data.full_day;
+                var event_type = response.data.event_type;
                 var content = response.data.description;
 
-                var html = '';
-                if (editable != 'false') {
-                    html += '<div class="event-popup-action"><button data-id="' + id + '" id="delete-event">Delete Event</button></div>';
+                if (full_day != 1) {
+                    time = moment(response.data.event_time, 'hh:mm A').format('hh:mm A');
                 }
-                html += '<h2>' + title + '</h2>';
-                html += '<span><strong>Date: </strong>' + event_date + '</span> ';
-                html += '<span><strong>Time: </strong>' + event_time + '</span> ';
+
+                var flag_class = '';
+                if (event_type == 'workout') {
+                    var flag_class = 'workout';
+                } else if (event_type == 'meal') {
+                    var flag_class = 'meal';
+                } else {
+                    var flag_class = 'rest';
+                }
+
+                html += '<h2><span class="flag ' + flag_class + '"></span>' + title + ' - ' + time + '</h2>';
                 html += '<div class="event-content">' + content + '</div>';
+                if (editable != 'false') {
+                    html += '<button data-id="' + id + '" id="delete-event">Delete Event</button>';
+                }
 
 
 
@@ -75,34 +84,48 @@ function print_calender(obj, editable) {
 
     var event_title = '';
     var event_start = '';
-
+    var full_day = '';
+    var event_time = '';
+    var event_type = '';
 
     $.each(obj, function(index, value) {
 
         id = obj[index].id;
         event_title = obj[index].title;
         event_start = moment(obj[index].event_date).format("YYYY-MM-DD");
+        full_day = obj[index].full_day;
         event_time = obj[index].event_time;
         event_type = obj[index].event_type;
 
 
         switch (event_type) {
             case 'rest':
-                 event_color = '#ed7a14';
+                event_color = '#ed7a14';
                 break;
             case 'workout':
-                 event_color = '#ed145b';
+                event_color = '#ed145b';
                 break;
             default:
-                 event_color = '#00a651';
+                event_color = '#00a651';
         }
 
-        events.push({
-            'id': id,
-            'title': event_title,
-            'start': event_start + 'T' + event_time,
-            'color' :event_color
-        });
+        if (full_day == 1) {
+            events.push({
+                'id': id,
+                'title': event_title,
+                'start': event_start,
+                'allDay': true,
+                'color': event_color
+            });
+        } else {
+            events.push({
+                'id': id,
+                'title': event_title,
+                'start': event_start + 'T' + event_time,
+                'color': event_color
+            });
+        }
+
     });
 
     var settings = {
@@ -114,7 +137,7 @@ function print_calender(obj, editable) {
         },
         eventLimit: true,
         dayNamesShort: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        viewRender: function(view) {
+        viewRender: function(currentView) {
             $('.ev-popup').remove();
             if (editable != 'false') {
                 $(".fc-left").append('<button class="ev-popup"><i class="muscle-icon"></i> Add New Event</button>');
@@ -122,15 +145,30 @@ function print_calender(obj, editable) {
         }
     };
 
+
     if (!$.isEmptyObject(obj)) {
         settings['events'] = events;
-        timeFormat: 'H(:mm)',
-        settings['eventClick'] = function(calEvent, jsEvent, view) {
+        settings['timeFormat'] = 'h:mm a',
+            settings['allDayText'] = 'All Day',
+            settings['eventClick'] = function(calEvent, jsEvent, view) {
                 load_single_event(calEvent.id, wpshev_ajax_object.calender_editable);
-        },
-        settings['eventRender'] = function(event, element) {
-         
-        }
+            },
+            settings['eventRender'] = function(objEvent, element, view) {
+                maxDate = moment().add(2, 'weeks');
+                if (view.name === "month") {
+                    if (element.find(".fc-content").find(".fc-time").length < 1) {
+                        element.find(".fc-content").find(".fc-title").before("<span class='all-day-label'>All Day</span> - ");
+                    }
+                }
+                // Future
+                if (maxDate >= view.start && maxDate <= view.end) {
+                    $(".fc-next-button").prop('disabled', true);
+                    $(".fc-next-button").addClass('fc-state-disabled');
+                } else {
+                    $(".fc-next-button").removeClass('fc-state-disabled');
+                    $(".fc-next-button").prop('disabled', false);
+                }
+            }
     }
 
     $('#wpshev-loader').hide();

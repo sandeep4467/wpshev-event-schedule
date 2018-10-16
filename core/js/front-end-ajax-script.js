@@ -16,38 +16,13 @@
                 data: data,
                 success: function(response) {
                     if (response.status == 'success') {
-
-                        var event_title = $("[name='event_title']").val();
-                        var event_start = moment($("[name='event-start-date']").val()).format("YYYY-MM-DD[T]HH:mm:ss");
-                        var event_time = moment($("[name='event-start-time']").val()).format("YYYY-MM-DD[T]HH:mm:ss");
-                        var event={
-                            'id': response.lastid,
-                            'title': event_title,
-                            'start': event_start,
-                            'end': event_end
-                        };
-
-                        $('#calendar').fullCalendar( 'renderEvent', event, true);
-
-
-                        $("[name='event_title']").val('');
-                        $("[name='event-start-date']").val('');
-                        $("[name='event-end-date']").val('');
-
+                        $('.wpshev-popup-outer, .wpshev-custom-popup-overlay').fadeOut();
+                        $('#ev-add-event').find("input[type=text], textarea").val("");
                         var tinymce_editor_id = 'kv_frontend_editor'; 
                         tinymce.get(tinymce_editor_id).setContent('');
+                        document.getElementById("ev-add-event").reset();
+                        location.reload();
 
-                        $.toast({
-                            heading: 'Success',
-                            text: response.message,
-                            showHideTransition: 'slide',
-                            icon: 'success',
-                            position: {
-                                right: 20,
-                                top: 120
-                            },
-                            hideAfter: 5000   // in milli seconds
-                        });
                     }
                     if (response.status == 'error') {
                         $.toast({
