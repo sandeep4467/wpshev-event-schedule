@@ -19,7 +19,8 @@ class WPSHEV_Shortcodes {
 			'wpshev_calender_client'     => __CLASS__ . '::schedule_calender_client',
 			'admin_dashboard'     => __CLASS__ . '::admin_dashboard',
 			'instructor_dashboard'     => __CLASS__ . '::instructor_dashboard',
-			'single_client'     => __CLASS__ . '::single_client'
+			'single_client'     => __CLASS__ . '::single_client',
+			'admin_instructor_view'     => __CLASS__ . '::admin_instructor_view',
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
@@ -182,17 +183,62 @@ class WPSHEV_Shortcodes {
 			if ($role[0] != "subscriber") {
 			    	include_once WPSHEV_ABSPATH . 'templates/access-denied.php';
 			}else{
+
+
+					/*Check if job is started*/
+					$client_id = get_current_user_id();
+					global $wpdb;
+					$query = "SELECT `*` FROM {$wpdb->prefix}instructor_data WHERE `assigned_client_id` = $client_id  AND `status` = 'assigned'";
+					$results = $wpdb->get_row( $query, OBJECT );
+
+
+					// Force start the job after 3 days
+					$created_date = new DateTime(date("d-m-Y", strtotime($results->created_date)));
+					//$today = new DateTime('2018-10-30');
+					$today = new DateTime(date("Y-m-d"));
+					$interval = $created_date->diff($today);
+					$grace_days = $interval->format('%R%a');
+
+					$int = str_replace("+","",$grace_days);
+
+					if ($grace_days > $int) {
+						  global $wpdb;
+					      $update = $wpdb->update( 
+					        $wpdb->prefix . 'instructor_data', 
+					        array( 
+					          'start_date' => current_time( 'mysql' ),  
+					          'started' => 1 
+					        ), 
+					        array( 'ID' => $results->ID ), 
+					        array( 
+					          '%s',
+					          '%d' 
+					        ), 
+					        array( '%d' ) 
+					      );
+					}
+
+
+                    /*Load Scripts for this page only*/
 					wpshevFrontEndScripts::on_demand_script('load-calender');
 					wpshevFrontEndScripts::on_demand_script('wpshev-ajax-handler');
 					$data = array(
 				         'admin_url'=> admin_url( 'admin-ajax.php' ),
 				         'site_url' => get_site_url(),
 				         'ajax_nonce' => wp_create_nonce('schedule-ajax-security-nonce'),
-				         'calender_editable'=> 'false'
+				         'calender_editable'=> 'false',
+				         'job_id'=> $results->ID
 				    );
 					wpshevFrontEndScripts::on_demand_localize_script('wpshev-ajax-handler', $data);
 					wpshevFrontEndScripts::on_demand_script('scripts');
-					include_once WPSHEV_ABSPATH . 'templates/single-client.php';
+
+
+
+					 if ($results->started == '0') {
+					 	include_once WPSHEV_ABSPATH . 'templates/partials/single-client-chat.php';
+					 }else{
+					    include_once WPSHEV_ABSPATH . 'templates/single-client.php';
+					 }
 			}
     	}
 
@@ -200,4 +246,40 @@ class WPSHEV_Shortcodes {
 		ob_end_clean();  // clears buffer and closes buffering
 		return self::shortcode_wrapper( $output, $atts ); 
 	}	
+
+	/**
+	 * Admin instructor's view.
+	 *
+	 * @param array $atts Attributes.
+	 * @return string
+	 */
+	public static function admin_instructor_view( $atts ) {
+		ob_start();
+
+		if( ! current_user_can('administrator') ) {
+		    include_once WPSHEV_ABSPATH . 'templates/access-denied.php';
+    	}else{
+			$user = wp_get_current_user();
+			$role = ( array ) $user->roles;
+			if ($role[0] != "administrator") {
+			    	include_once WPSHEV_ABSPATH . 'templates/access-denied.php';
+			}else{
+
+					wpshevFrontEndScripts::on_demand_script('admin-instructor-ajax-script');
+					$data = array(
+				         'admin_url'=> admin_url( 'admin-ajax.php' ),
+				         'site_url' => get_site_url(),
+				         'ajax_nonce' => wp_create_nonce('schedule-ajax-security-nonce'),
+				    );
+					wpshevFrontEndScripts::on_demand_localize_script('admin-instructor-ajax-script', $data);
+					
+					include_once WPSHEV_ABSPATH . 'templates/admin-instructor-view.php';
+			}
+    	}
+
+		$output = ob_get_contents();  // stores buffer contents to the variable
+		ob_end_clean();  // clears buffer and closes buffering
+		return self::shortcode_wrapper( $output, $atts ); 
+	}
+
 }

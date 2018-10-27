@@ -315,5 +315,70 @@
         }
      });
      /*========= Chat Module End =================*/
+
+     /*=================Start Job==================*/
+       $('#proceed-to-start').click(function(e) {
+            $(this).text('Proceeding...').addClass('disable-btn');
+            e.preventDefault();
+
+            var data = {
+                action: 'ev_start_job',
+                job_id: wpshev_ajax_object.job_id,
+                client_id: customer_id,
+                instructor_id: instructor_id
+            };
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: wpshev_ajax_object.admin_url,
+                data: data,
+                success: function(response) {
+                    setTimeout(function(){
+                        $('#proceed-to-start').text('Redirecting...').addClass('disable-btn');
+                    }, 2000);
+
+                    if (response.status == 'success') {
+                        $.dialog({
+                            title: 'Awesome!! Hold On',
+                            content: 'We are getting things ready...',
+                            icon: 'fa fa-smile-o',
+                            closeIcon: false,
+                            animation: 'scale',
+                            type: 'blue'
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 2000);
+                    }
+                    if (response.status == 'error') {
+                        $.toast({
+                            heading: 'Information',
+                            text: response.message,
+                            icon: 'info',
+                            loader: true,        // Change it to false to disable loader
+                            loaderBg: '#9EC600',  // To change the background
+                            position: {
+                                    right: 20,
+                                    top: 120
+                            },
+                            hideAfter: 5000   // in milli seconds
+                        })
+                    }
+
+                },
+                beforeSend: function() {
+                    $('.ajax-laoder').show();
+                },
+                complete: function() {
+                    $('.ajax-laoder').hide();
+                },
+                error: function(error) {
+                    $('.ajax-laoder').hide();
+                    console.info("Error AJAX not working: " + error);
+                }
+            });
+            return false;
+        })
+
     });
 }(jQuery));

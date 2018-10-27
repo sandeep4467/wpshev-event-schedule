@@ -51,7 +51,17 @@ final class WpScheduleEvent
         add_action('wp_ajax_nopriv_delete_user_status', array('wpshevChat', 'delete_user_status') );    
 
         add_action('wp_ajax_check_user_status', array('wpshevChat', 'check_user_status') ); 
-        add_action('wp_ajax_nopriv_check_user_status', array('wpshevChat', 'check_user_status') );          
+        add_action('wp_ajax_nopriv_check_user_status', array('wpshevChat', 'check_user_status') );     
+
+        add_action('wp_ajax_ev_delete_payment', array('wpshevAjax', 'delete_payment') ); 
+        add_action('wp_ajax_nopriv_ev_delete_payment', array('wpshevAjax', 'delete_payment') ); 
+
+        add_action('wp_ajax_ev_update_payment_status', array('wpshevAjax', 'update_payment_status') ); 
+        add_action('wp_ajax_nopriv_ev_update_payment_status', array('wpshevAjax', 'update_payment_status') ); 
+
+        add_action('wp_ajax_ev_start_job', array('wpshevAjax', 'start_job') ); 
+        add_action('wp_ajax_nopriv_ev_start_job', array('wpshevAjax', 'start_job') ); 
+
     }
     /*
     * Define Constants
@@ -94,5 +104,7 @@ final class WpScheduleEvent
         include_once WPSHEV_ABSPATH . 'core/includes/ajax/wpshev_event.php';
         include_once WPSHEV_ABSPATH . 'core/includes/ajax/wpshev_ajax.php';
         include_once WPSHEV_ABSPATH . 'core/includes/class-helpers.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/class-manage-payments.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/class-instructor-info.php';
     }
 }

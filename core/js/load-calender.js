@@ -161,7 +161,9 @@ function print_calender(obj, editable) {
                     }
                 }
                 // Future
-                if (maxDate >= view.start && maxDate <= view.end) {
+                var enable_next_month = $('#enable_next_month').val();
+                //alert(enable_next_month);
+                if (enable_next_month == 'disable') {
                     $(".fc-next-button").prop('disabled', true);
                     $(".fc-next-button").addClass('fc-state-disabled');
                 } else {
@@ -217,4 +219,14 @@ function get_events_calender(customer_id, instructor_id, editable) {
             console.info("Error AJAX not working: " + error);
         }
     });
+}
+
+var show_feedback_popup = $('#show_feedback_popup').val();
+if (show_feedback_popup == 'true') {
+$.magnificPopup.open({
+  items: {
+    src: "<div class='white-popup feedback-popup'><h3>Let us know how did it go!</h3><textarea id='feedback' placeholder='Write your feedback here.'></textarea><small>Next month will automatically starts in 5 days, if review is not submitted.</small><button id='submit-feedback'>Submit Review & Proceed</button><div class='clear'></div></div>",
+    type: 'inline'
+  }
+});
 }

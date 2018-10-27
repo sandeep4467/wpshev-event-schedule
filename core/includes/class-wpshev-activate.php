@@ -46,9 +46,14 @@ class WPSHEV_Activate {
             $sql = "CREATE TABLE $table_name (
                     ID mediumint(9) NOT NULL AUTO_INCREMENT,
                     `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `start_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `started` int(9) NOT NULL DEFAULT 0,
                     `instructor_id` int(9) NOT NULL,
                     `assigned_client_id` int(9) NOT NULL,
                     `status` text NOT NULL,
+                    `feedback` LONGTEXT NOT NULL,
+                    `notification_id` int(9) NOT NULL,
+                    `grace_days` int(9) NOT NULL DEFAULT 3,
                     PRIMARY KEY  (ID)
             )    $charset_collate;";
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -83,6 +88,43 @@ class WPSHEV_Activate {
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             dbDelta( $sql );
       }
+
+    // Install table for instructor payment data
+        $table_name = $wpdb->prefix . "instructor_payment_data";
+        if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) != $table_name ) {
+
+            $sql = "CREATE TABLE $table_name (
+                    ID mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `payment_due_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `instructor_id` int(9) NOT NULL,
+                    `assigned_client_id` int(9) NOT NULL,
+                    `access_limited_time_type` text NOT NULL,
+                    `access_limited_time_value` int(9) NOT NULL,
+                    `bill_cycle` varchar(256) NOT NULL,
+                    `monthly_payment` decimal(4,2) NOT NULL,
+                    `plan_price` int(9) NOT NULL,
+                    `level_id` int(9) NOT NULL,
+                    `status` text NOT NULL,
+                    PRIMARY KEY  (ID)
+            )    $charset_collate;";
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            dbDelta( $sql );
+      }
+
+        // Install table for notification data
+        $table_name = $wpdb->prefix . "wpshev_notification_data";
+        if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) != $table_name ) {
+            $sql = "CREATE TABLE $table_name (
+                    ID mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `notification_dates` LONGTEXT NOT NULL,
+                    PRIMARY KEY  (ID)
+            )    $charset_collate;";
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            dbDelta( $sql );
+      }
+
      }
      public static function add_user_role(){
         add_role( 'fit_instructor', 'Instructor' );

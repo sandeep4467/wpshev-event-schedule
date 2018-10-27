@@ -1,25 +1,29 @@
+<?php 
+    $current_year = date('Y');
+    $current_month = date('n');
+    $user_id = get_current_user_id(); 
+?>
 <div class="instructor-section">
     <div class="header-insturctor">
         <div class="ins-block ins-block1">
             <span>Current Month’s Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
             <img class="ins-icon" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/icon1.png" alt="">
-            <div class="price">$350</div>
+            <div class="price"><?php echo wpshevInstructorInfo::current_month_payout($user_id, $current_month, $current_year); ?></div>
         </div>
         <div class="ins-block ins-block2">
             <span>Outstanding Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
             <img class="ins-icon" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/icon2.png" alt="">
-            <div class="price">$500</div>
+            <div class="price"><?php echo wpshevInstructorInfo::outstanding_payout($user_id); ?></div>
         </div>
 
         <div class="ins-block ins-block3">
             <span>Total Amount Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
             <img class="ins-icon" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/icon3.png" alt="">
-            <div class="price">$500</div>
+            <div class="price"><?php echo wpshevInstructorInfo::life_time_earnings($user_id); ?></div>
         </div>
     </div>
    <?php
     global $wpdb; 
-    $user_id = get_current_user_id(); 
     /*Get all Clients*/  
     $result = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}instructor_data WHERE `instructor_id` = $user_id AND `status`= 'assigned'");
     if (!empty($result)) {

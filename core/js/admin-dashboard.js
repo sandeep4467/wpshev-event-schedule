@@ -4,12 +4,21 @@
             e.preventDefault();
             
             var client_id = $('input[name=client_user_id]').val();
+            var access_limited_time_type = $('input[name=access_limited_time_type]').val();
+            var access_limited_time_value = $('input[name=access_limited_time_value]').val();
+            var level_id = $('input[name=level_id]').val();
+            var price = $('input[name=price]').val();
+
             var instructor_id = $('input[name=instructor_id]:checked').val();
 
             var data = {
                 action: 'ev_assign_instructor',
                 client_id: client_id,
                 instructor_id: instructor_id,
+                access_limited_time_type: access_limited_time_type,
+                access_limited_time_value: access_limited_time_value,
+                level_id: level_id,
+                price: price,
                 security: wpshev_ajax_object.ajax_nonce
             };
             $.ajax({
@@ -43,7 +52,7 @@
                         });
                     }
                     window.setTimeout(function() {
-                        location.reload(true);
+                       // location.reload(true);
                     }, 5000)
                 },
                 beforeSend: function() {

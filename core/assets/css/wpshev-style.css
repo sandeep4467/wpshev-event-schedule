@@ -298,9 +298,11 @@ body {
 .ui-datepicker-prev.ui-corner-all {
 	display: none;
 }
+
 .ui-datepicker-next.ui-corner-all {
 	display: none;
 }
+
 .white-popup h2 {
 	font-size: 32px;
 	display: inline-block;
@@ -386,6 +388,10 @@ body {
 
 .fitness-table-header {
 	padding: 20px;
+}
+
+.fitness-table-header h2 {
+	margin: 0 !important;
 }
 
 .fitness-table-header h2 span {
@@ -871,7 +877,10 @@ table.ui-datepicker-calendar {
 .user_name {
 	color: #2399f1;
 }
-
+.user_name small {
+	color: #585d68;
+	display: block;
+}
 .chat-left .status {
 	background: #2399f1;
 	width: 10px;
@@ -880,12 +889,15 @@ table.ui-datepicker-calendar {
 	display: inline-block;
 	margin-right: 6px;
 }
+
 .chat-left .status.online {
 	background: #1bb934;
 }
+
 .info-edit {
 	font-size: 12px;
 }
+
 .chat-left p {
 	margin-bottom: 0;
 }
@@ -965,6 +977,7 @@ table.ui-datepicker-calendar {
 	position: relative;
 	height: 640px;
 }
+
 .chat-footer {
 	position: absolute;
 	bottom: 0;
@@ -974,16 +987,20 @@ table.ui-datepicker-calendar {
 	border-top: 1px solid #e6e9ec;
 	border-left: 1px solid #e6e9ec;
 }
+
 #new-message {
 	margin-bottom: 25px;
 }
+
 .bottom-actions {
 	background: #046fbf;
 	padding: 20px 3%;
 }
+
 .fc-day-grid-event .fc-time:after {
 	content: " -";
 }
+
 #chat-message {
 	margin: 0 3%;
 	width: 94%;
@@ -1067,6 +1084,7 @@ table.ui-datepicker-calendar {
 .user-status-right .status.online {
 	background: #1bb934;
 }
+
 .all-day-label {
 	font-weight: bold;
 }
@@ -1075,3 +1093,315 @@ table.ui-datepicker-calendar {
 	border-bottom: 3px solid #9b26af;
 }
 
+.instructor-profile {
+	margin-top: 75px;
+}
+
+.instructor-pic {
+	width: 65px;
+	height: 65px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.profile-left {
+	float: left;
+	width: 25%;
+	margin-right: 3%;
+}
+
+.profile-right {
+	width: 72%;
+	float: left;
+}
+
+.instructor-profile .header-insturctor {
+	text-align: left;
+	margin-bottom: 40px;
+}
+
+.instructor-profile .ins-block {
+	width: 32%;
+	margin-right: 2%;
+	float: left;
+}
+
+.instructor-profile .ins-block:last-child {
+	margin-right: 0;
+}
+
+.instructor-info {
+	float: left;
+	width: 70%;
+}
+
+.instructor-info h3 {
+	color: #333c48;
+	margin-bottom: 0 !important;
+	font-family: 'Myriad Pro Semibold';
+}
+
+.instructor-name {
+	color: #333c48;
+	font-size: 19px;
+	line-height: normal;
+}
+
+.payment-type {
+	color: #333c48;
+	font-size: 15px;
+	line-height: normal;
+}
+
+.paypal-email {
+	display: block;
+	font-family: 'Myriad Pro Semibold';
+}
+
+#edit-payment {
+	background: none;
+	color: #333c48;
+	text-transform: lowercase;
+	border-bottom: 1px solid #333c48;
+	border-radius: 0;
+	padding: 0;
+	font-family: 'Myriad Pro Semibold';
+	margin-left: 10px;
+}
+
+.month-view {
+	float: left;
+	width: 25%;
+	margin-right: 3%;
+}
+
+.month-view ul {
+	text-align: center;
+	border: 1px solid #ededed;
+	padding: 20px;
+	list-style: none;
+	border-radius: 5px;
+}
+
+.month-view ul li {
+	color: #333c48;
+	font-size: 18px;
+	line-height: 57px;
+	cursor: pointer;
+}
+
+#next-year, #prev-year{
+	color: #2e41a7;
+	background: no-repeat;
+	float: right;
+	font-size: 18px;
+	padding: 0;
+	font-family: 'Myriad Pro Semibold';
+	margin-bottom: 15px;
+}
+#prev-year{
+	float: left;
+}
+
+.month-view ul li.current-month {
+	color: #2e41a7;
+	font-family: 'Myriad Pro Semibold';
+}
+
+.payment-list {
+	margin-top: 75px;
+}
+
+.payment-data {
+	float: left;
+	width: 72%;
+	border: 1px solid #ededed;
+	border-radius: 5px;
+	margin-top: 34px;
+}
+
+.data-header {
+	padding: 17px 3%;
+}
+
+.data-header h2 {
+	font-size: 23px !important;
+	color: #354052;
+	display: inline;
+}
+
+.data-header h2 span {
+	font-size: 12px;
+	color: #ccc;
+	vertical-align: middle;
+}
+
+#mark-paid {
+	margin-left: 100px;
+	background: #39b54a;
+	background: -moz-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: -webkit-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: linear-gradient(to right, #39b54a 0%, #33aa44 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39b54a', endColorstr='#33aa44', GradientType=1);
+	font-weight: normal;
+	font-size: 13.8px !important;
+	text-transform: capitalize;
+	width: 150px;
+	height: 36px !important;
+	border: 1px solid #249533;
+	border-radius: 3px;
+	font-family: 'Myriad Pro Semibold' !important;
+	padding: 0;
+}
+
+#add-payment {
+	float: right;
+	background: #39b54a;
+	background: -moz-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: -webkit-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: linear-gradient(to right, #39b54a 0%, #33aa44 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39b54a', endColorstr='#33aa44', GradientType=1);
+	font-weight: normal;
+	font-size: 13.8px !important;
+	text-transform: uppercase;
+	width: 150px;
+	height: 36px !important;
+	border: 1px solid #249533;
+	border-radius: 3px;
+	font-family: 'Myriad Pro Semibold' !important;
+	padding: 0;
+}
+
+.delete {
+	border-radius: 3px;
+	font-family: 'Myriad Pro Semibold' !important;
+	font-weight: normal;
+	font-size: 13.8px !important;
+	text-transform: capitalize;
+	background: #b13737;
+	padding: 10px 23px;
+}
+.unpaid {
+	background: #ff0000;
+	color: #fff;
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+.paid {
+	background: #29a537;
+	color: #fff;
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+#data-list {
+	border-left: 0;
+	border-right: 0;
+	border-color: #ededed;
+	margin-bottom: 0;
+}
+#data-list tr td{
+	border:0;
+}
+#data-list tr td{
+	border-bottom: 1px solid #ededed;
+}
+#data-list tr, #data-list td, #data-list th{
+	border-color: #ededed;
+}
+#data-list tr td:first-child {
+text-align: center;
+}
+
+#data-list tr:last-child td {
+	border-bottom: 0;
+}
+#data-list th {
+	border: 0;
+	background: #2e41a7;
+	color: #fff;
+	font-size: 14px;
+}
+#data-list td{
+font-size: 14px;
+}
+.notification {
+	background: #ffd56d;
+	margin-bottom: 20px;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+.welcome-message h2 {
+	color: #7f8fa4;
+	font-family: 'Myriad Pro Bold';
+	font-size: 30px;
+}
+.welcome-message p {
+	color: #7f8fa4;
+	font-family: 'Myriad Pro Semibold';
+	font-size: 19px;
+	margin: 0;
+}
+.proceed-to-start.disable-btn {
+	opacity: 0.7;
+	cursor: ;
+	pointer-events: none;
+}
+.proceed-to-start {
+	background: #39b54a;
+	color: #fff;
+	padding: 8px 24px;
+	border-radius: 6px;
+	border: 1px solid #249533;
+}
+.message-col {
+	float: left;
+	width: 85%;
+}
+.right-col {
+	float: right;
+}
+.jconfirm .jconfirm-box {
+    background: white;
+    border-radius: 4px;
+    position: relative;
+    outline: 0;
+    padding: 15px 15px 0;
+    overflow: hidden;
+    margin-left: 38.33%; /*(modification)*/
+    margin-right: 35%; /*(modification)*/
+}
+.feedback-popup #feedback {
+	background: #273142;
+	border: 1px solid #303c4e;
+	min-height: 300px;
+	margin-bottom: 20px;
+	color: #fff;
+}
+.feedback-popup h3 {
+	font-size: 20px;
+	margin-bottom: 13px;
+}
+
+.feedback-popup #submit-feedback {
+	background: #39b54a;
+	background: -moz-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: -webkit-linear-gradient(left, #39b54a 0%, #33aa44 100%);
+	background: linear-gradient(to right, #39b54a 0%, #33aa44 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39b54a', endColorstr='#33aa44', GradientType=1);
+	font-weight: normal;
+	font-size: 13.8px !important;
+	text-transform: capitalize;
+	width: auto;
+	height: auto;
+	border: 1px solid #249533;
+	border-radius: 3px;
+	font-family: 'Myriad Pro Semibold' !important;
+	margin-left: 30px !important;
+	line-height: normal;
+	padding-top: 9px;
+	float: right;
+}

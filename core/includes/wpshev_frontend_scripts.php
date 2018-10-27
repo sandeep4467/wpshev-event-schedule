@@ -90,6 +90,12 @@ class wpshevFrontEndScripts
            'ver'=> '1.3.2',
            'in_footer'=>true
           ),
+          'admin-instructor-ajax-script' => array(
+           'src' => self::get_asset_url('core/js/admin-instructor-ajax-script.js'),
+           'deps'=> array('jquery'),
+           'ver'=> '1.0',
+           'in_footer'=>true
+          ),
           'scripts' => array(
            'src' => self::get_asset_url('core/js/scripts.js'),
            'deps'=> array('jquery'),

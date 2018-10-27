@@ -35,11 +35,7 @@
                              $class = 'assigned';
                              $label = 'Reassign Instructor';
                             
-                             
-    
-
                              $date_label = date( "d-M-Y, h:i A", strtotime( $data->created_date));
-
 
                              $instructor_id = $data->instructor_id;
                              $instructor_info = get_userdata($data->instructor_id);
@@ -51,16 +47,16 @@
                     <small><?php echo get_user_meta( $client->ID, 'country', true ); ?>, <?php echo get_user_meta( $client->ID, 'thestate', true ); ?></small></td>
                     <td>
           						<?php
-          	                    	$plan = wpshevHelpers::get_user_membership_details($client->ID);
-          	                    	echo $plan['label'];
+          	            $plan = wpshevHelpers::get_user_membership_details($client->ID);
+          	            echo $plan['label'];
           						?>
                     </td>
                     <td><?php echo $ins_label; ?></td>
                     <td><?php echo $date_label; ?></td>
                     <td>
-                    	<a class="popup-modal <?php echo $class; ?>" href="#instructor-modal" data-user-id="<?php echo $client->ID ?>" data-instructor-id="<?php echo $instructor_id; ?>">
+                    	<a class="popup-modal <?php echo $class; ?>" href="#instructor-modal" data-user-id="<?php echo $client->ID ?>" data-instructor-id="<?php echo $instructor_id; ?>" data-access_limited_time_type="<?php echo $plan['access_limited_time_type']; ?>" data-access_limited_time_value="<?php echo $plan['access_limited_time_value']; ?>" data-level-id="<?php echo $plan['level_id']; ?>" data-price="<?php echo $plan['price']; ?>">
                           <?php echo $label; ?>
-                        </a>
+                      </a>
                     </td>
                     <td>
                     	<a href="?user_id=<?php echo $client->ID ?>">Enter Page</a>
@@ -77,6 +73,10 @@
 	<h1>Assign Instructor</h1>
 	<form action="" method="post" id="assign_instructor_form">
 		<input type="hidden" name="client_user_id" value="">
+    <input type="hidden" name="access_limited_time_type" value="">
+    <input type="hidden" name="access_limited_time_value" value="">
+    <input type="hidden" name="level_id" value="">
+    <input type="hidden" name="price" value="">
 		<?php 
          $instructors = get_users( array('role'=> 'fit_instructor') ); 
          foreach ($instructors as $instructor) { ?>
@@ -104,9 +104,20 @@
 		jQuery.magnificPopup.close();
 	});
 	jQuery('.popup-modal').click(function(){
+
        var user_id = jQuery(this).data('user-id');
        var instructor_id = jQuery(this).data('instructor-id');
+       var access_limited_time_type = jQuery(this).data('access_limited_time_type');
+       var access_limited_time_value = jQuery(this).data('access_limited_time_value');
+       var level_id = jQuery(this).data('level-id');
+       var price = jQuery(this).data('price');
+
        jQuery('input[name=client_user_id]').val(user_id);
+       jQuery('input[name=access_limited_time_type]').val(access_limited_time_type);
+       jQuery('input[name=access_limited_time_value]').val(access_limited_time_value);
+       jQuery('input[name=level_id]').val(level_id);
+       jQuery('input[name=price]').val(price);
+
        if (instructor_id != '') {
          jQuery('#instructor_' + instructor_id).attr('checked', true);
        }

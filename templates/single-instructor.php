@@ -32,6 +32,34 @@ if (isset($_GET['user_id'])) { ?>
             <img src="<?php echo plugins_url('/core/assets/img/ajax-loader.gif', WPSHEV_PLUGIN_FILE); ?>">
             <span>Hold on! calendar is loading...</span>
         </div>
+
+
+
+
+<?php 
+$notification_dates = wpshevHelpers::get_notification_date($instructor_id, $client_id);
+$enable_next_month ='disable';
+foreach ($notification_dates as $notification_date) {
+
+ $notification_start_date = date('Y-m-d',(strtotime ( '-5 day' , strtotime ( $notification_date ) ) ));
+ $notification_end_date = date('Y-m-d',(strtotime ( '0 day' , strtotime ( $notification_date ) ) ));
+
+//$paymentDate = strtotime("2018-12-22");
+$paymentDate = strtotime(date('Y-m-d'));
+$DateBegin = strtotime($notification_start_date);
+ 
+
+$DateEnd = strtotime($notification_end_date);
+  if($paymentDate >= $DateBegin && $paymentDate <= $DateEnd) {
+   echo "<div class='notification'><i class='fa fa-bell-o' aria-hidden='true'></i>
+       Notification: Setup new month's event!</div>";
+      $enable_next_month ='enable'; 
+  } 
+
+}
+  echo "<input type='hidden' id='enable_next_month' value='".$enable_next_month."'>";
+?>
+
         <div id='calendar'>
         </div>
         <div id="chat-section">
@@ -183,7 +211,26 @@ if (isset($_GET['user_id'])) { ?>
             </form>
         </div>
          </div>
+
+
+
+
         <div class="wpshev-custom-popup-overlay"></div>
+        <?php 
+
+$html = "<input type='hidden' id='show_feedback_popup' value='true'>";   
+
+foreach ($notification_dates as $notification_date) {
+
+    //$today = strtotime('2018-11-27');
+    $today = strtotime(date('Y-m-d'));
+    $noti_date = strtotime($notification_date);
+
+    if ($today == $noti_date) {
+        echo $html;
+    }
+}
+        ?>
         <script type="text/javascript">
             jQuery('.meal-active').on('change', function() {
                         var sval = $(this).find(":selected").val();
