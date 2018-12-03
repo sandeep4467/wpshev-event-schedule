@@ -105,6 +105,12 @@ class WPSHEV_Shortcodes {
 			if ($role[0] != "administrator") {
 			    	include_once WPSHEV_ABSPATH . 'templates/access-denied.php';
 			}else{
+
+
+				wpshevFrontEndScripts::on_demand_script('load-calender');
+				wpshevFrontEndScripts::on_demand_script('wpshev-ajax-handler');
+				wpshevFrontEndScripts::on_demand_script('scripts');
+
 				wpshevFrontEndScripts::on_demand_script('toastr');
 				wpshevFrontEndScripts::on_demand_script('admin-dashboard');
 				wpshevFrontEndScripts::on_demand_css('toastr');
@@ -112,11 +118,21 @@ class WPSHEV_Shortcodes {
 				$data = array(
 			         'admin_url'=> admin_url( 'admin-ajax.php' ),
 			         'site_url' => get_site_url(),
+			         'calender_editable'=> 'false',
 			         'ajax_nonce' => wp_create_nonce('schedule-ajax-security-nonce')
 			    );
 			    wpshevFrontEndScripts::on_demand_localize_script('admin-dashboard', $data);
 
-				include_once WPSHEV_ABSPATH . 'templates/admin-dashboard.php';
+                if (isset($_GET['client_id']) && isset($_GET['instructor_id'])) {
+                	if( current_user_can('administrator') ) {  
+                	include_once WPSHEV_ABSPATH . 'templates/admin-single-client-view.php';
+                    }else{
+                    	include_once WPSHEV_ABSPATH . 'templates/access-denied.php';
+                    }
+                }else{
+                	include_once WPSHEV_ABSPATH . 'templates/admin-dashboard.php';
+                }
+				
 			}
     	}
 

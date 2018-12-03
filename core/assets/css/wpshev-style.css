@@ -71,7 +71,19 @@
 body {
 	font-family: 'Myriad Pro Regular' !important;
 }
-
+button.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
+    display: none;
+}
+button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
+    display: none !important;
+}
+.admin-notification {
+    background: #ffead0;
+    border: 1px solid #f9d3a4;
+    padding: 8px 20px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
 /* Styles for dialog window */
 #small-dialog, .white-popup {
 	background: white;
@@ -579,7 +591,7 @@ table.ui-datepicker-calendar {
 	margin-right: 4px;
 }
 
-.fc-day-header span {
+.fc-day-header {
 	font-size: 13.7px;
 	color: #7f8fa4;
 	font-family: 'Myriad Pro Semibold' !important;

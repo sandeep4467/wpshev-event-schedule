@@ -59,7 +59,7 @@
                       </a>
                     </td>
                     <td>
-                    	<a href="?user_id=<?php echo $client->ID ?>">Enter Page</a>
+                    	<a href="?client_id=<?php echo $client->ID; ?>&instructor_id=<?php echo $instructor_id; ?>">Enter Page</a>
                     </td>
                 </tr>
 				<?php } ?>

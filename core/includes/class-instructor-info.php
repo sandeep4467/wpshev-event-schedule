@@ -8,7 +8,15 @@ if (!defined('ABSPATH')) {
 }
 
 class wpshevInstructorInfo
-{
+{   
+    private static function instructor_percentage($instructor_id){
+      $instructor_percentage = get_user_meta( $instructor_id, 'instructor_percentage' , true );
+      if ( ! empty( $instructor_percentage ) ) {
+         return $instructor_percentage;
+      }
+      $instructor_commission = 0;
+    }
+
     public static function total_clients($instructor_id){
       global $wpdb;
       $count = $wpdb->get_var("SELECT COUNT(*) FROM `{$wpdb->prefix}instructor_data` WHERE `instructor_id` = $instructor_id AND `status` = 'assigned'");
@@ -26,8 +34,11 @@ class wpshevInstructorInfo
      
       $sum = $wpdb->get_var("SELECT SUM(`monthly_payment`) FROM {$wpdb->prefix}instructor_payment_data WHERE `instructor_id` = $instructor_id AND DATE_FORMAT(payment_due_date, '%m-%Y') = '$month_year'");
        
-      if (!empty($sum)) {
-        return '$' . $sum;
+      $percentage = self::instructor_percentage($instructor_id);
+      $new_sum = ($percentage / 100) * $sum;
+
+      if (!empty($new_sum)) {
+        return '$' . number_format($new_sum, 2);
       }else{
         return '--';
       }
@@ -39,9 +50,12 @@ class wpshevInstructorInfo
       global $wpdb;
      
       $outstanding = $wpdb->get_var("SELECT SUM(`monthly_payment`) FROM `wp_instructor_payment_data` WHERE `instructor_id` = $instructor_id AND `status` = 'unpaid'");
-       
-      if (!empty($outstanding)) {
-        return '$' . $outstanding;
+
+      $percentage = self::instructor_percentage($instructor_id);
+      $new_outstanding = ($percentage / 100) * $outstanding;
+
+      if (!empty($new_outstanding)) {
+        return '$' . number_format($new_outstanding, 2);
       }else{
         return '--';
       }
@@ -53,8 +67,11 @@ class wpshevInstructorInfo
 
         $total = $wpdb->get_var("SELECT SUM(`monthly_payment`) FROM `wp_instructor_payment_data` WHERE `instructor_id` = $instructor_id AND `status` = 'paid'");
 
-        if (!empty($total)) {
-          return '$' . $total;
+        $percentage = self::instructor_percentage($instructor_id);
+        $new_total = ($percentage / 100) * $total;
+
+        if (!empty($new_total)) {
+          return '$' . number_format($new_total, 2);
         }else{
           return '--';
         }

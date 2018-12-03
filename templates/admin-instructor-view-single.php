@@ -33,20 +33,30 @@
         Paypal
         <span class="paypal-email"><?php echo get_user_meta( $instructor_id, 'paypalemail', true ) ?></span>
     </div>
+    <div class="instructor_percentage">
+        <?php 
+            $instructor_percentage = get_user_meta( $instructor_id, 'instructor_percentage' , true );
+            if ( ! empty( $instructor_percentage ) ) {
+                echo 'Instructor Commission: ' . $instructor_percentage . '%' . '<a href="'.get_edit_user_link( $instructor_id ).'"> Edit</a>';
+            }else{
+                echo "You have not defined any percentage for this instructor.";
+            }
+        ?>
+    </div>
 </div>
 
 <div class="profile-right">
     <div class="header-insturctor">
         <div class="ins-block ins-block1">
             <span>Current Month’s Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
-            <img class="ins-icon" src="http://35.227.81.49/fitness/wp-content/themes/twentysixteen/assets/img/icon1.png" alt="">
+            <img class="ins-icon" src="http://35.237.229.167/fitness/wp-content/themes/twentysixteen/assets/img/icon1.png" alt="">
             <div class="price">
              <?php echo wpshevInstructorInfo::current_month_payout($instructor_id, $arr[0], $arr[1]); ?>
             </div>
         </div>
         <div class="ins-block ins-block2">
             <span>Outstanding Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
-            <img class="ins-icon" src="http://35.227.81.49/fitness/wp-content/themes/twentysixteen/assets/img/icon2.png" alt="">
+            <img class="ins-icon" src="http://35.237.229.167/fitness/wp-content/themes/twentysixteen/assets/img/icon2.png" alt="">
             <div class="price">
                   <?php echo wpshevInstructorInfo::outstanding_payout($instructor_id); ?>
             </div>
@@ -54,7 +64,7 @@
 
         <div class="ins-block ins-block3">
             <span>Total Amount Payout <i class="fa fa-heart" aria-hidden="true"></i></span>
-            <img class="ins-icon" src="http://35.227.81.49/fitness/wp-content/themes/twentysixteen/assets/img/icon3.png" alt="">
+            <img class="ins-icon" src="http://35.237.229.167/fitness/wp-content/themes/twentysixteen/assets/img/icon3.png" alt="">
             <div class="price"><?php echo wpshevInstructorInfo::life_time_earnings($instructor_id); ?></div>
         </div>
     </div>

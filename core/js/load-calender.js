@@ -129,6 +129,7 @@ function print_calender(obj, editable) {
     });
 
     var settings = {
+        showNonCurrentDates: false,
         defaultView: 'month',
         header: {
             left: 'prev, title',
