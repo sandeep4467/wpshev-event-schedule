@@ -920,7 +920,7 @@ table.ui-datepicker-calendar {
 }
 
 #client-information {
-	padding: 15px 20px;
+	padding: 0;
 	border-top: 1px solid #e6e9ec;
 }
 
@@ -929,7 +929,62 @@ table.ui-datepicker-calendar {
 	color: #354052;
 	font-weight: 300;
 }
-
+div#wpshev_tabs {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+#chat-section .ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: .2em .2em 0;
+    border-radius: 0;
+    margin-top: -1px;
+}
+#chat-section .ui-tabs .ui-tabs-nav li a {
+    box-shadow: none;
+    background: #2097ef;
+    color: white;
+}
+#chat-section .ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+    cursor: text;
+    background: #fff;
+    color: #585d68 !important;
+}
+#chat-section .ui-tabs .ui-tabs-panel {
+    padding: 1em 1em;
+}
+#chat-section .ui-tabs .ui-tabs-nav{
+	padding:0;
+}
+.note-repater {
+    background: #f5f5f5;
+    font-size: 13px;
+    margin-bottom: 20px;
+    padding: 9px 15px;
+    position: relative;
+    padding-right: 34px;
+    border-radius: 5px;
+}
+button.delete-note {
+    background: none;
+    color: #f44336;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 15px;
+}
+textarea#note {
+    padding: 3px 10px;
+    border: 1px solid #e6e9ec;
+    resize: vertical;
+    font-size: 14px !important;
+    margin-bottom: 20px;
+}
+button#send-note {
+    background: #2097ef;
+    font-size: 14px;
+    width: 200px;
+}
 .info {
 	color: #354052;
 	font-size: 14px;

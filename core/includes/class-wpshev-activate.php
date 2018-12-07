@@ -49,11 +49,12 @@ class WPSHEV_Activate {
                     `start_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
                     `started` int(9) NOT NULL DEFAULT 0,
                     `instructor_id` int(9) NOT NULL,
+                    `previous_instructor_id` int(9) DEFAULT NULL,
                     `assigned_client_id` int(9) NOT NULL,
                     `status` text NOT NULL,
                     `feedback` LONGTEXT NOT NULL,
-                    `notification_id` int(9) NOT NULL,
                     `grace_days` int(9) NOT NULL DEFAULT 3,
+                    `is_new_job` smallint DEFAULT '1' NOT NULL,                    
                     PRIMARY KEY  (ID)
             )    $charset_collate;";
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -95,8 +96,7 @@ class WPSHEV_Activate {
 
             $sql = "CREATE TABLE $table_name (
                     ID mediumint(9) NOT NULL AUTO_INCREMENT,
-                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-                    `payment_due_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `job_id` int(9) NOT NULL,
                     `instructor_id` int(9) NOT NULL,
                     `assigned_client_id` int(9) NOT NULL,
                     `access_limited_time_type` text NOT NULL,
@@ -106,6 +106,9 @@ class WPSHEV_Activate {
                     `plan_price` int(9) NOT NULL,
                     `level_id` int(9) NOT NULL,
                     `status` text NOT NULL,
+                    `is_job_running` smallint DEFAULT '0' NOT NULL,
+                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `payment_due_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
                     PRIMARY KEY  (ID)
             )    $charset_collate;";
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -117,8 +120,23 @@ class WPSHEV_Activate {
         if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) != $table_name ) {
             $sql = "CREATE TABLE $table_name (
                     ID mediumint(9) NOT NULL AUTO_INCREMENT,
-                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    `job_id` int(9) NOT NULL,
                     `notification_dates` LONGTEXT NOT NULL,
+                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                    PRIMARY KEY  (ID)
+            )    $charset_collate;";
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            dbDelta( $sql );
+      }
+        // Install table for notification data
+        $table_name = $wpdb->prefix . "wpshev_instructor_notes";
+        if ( $wpdb->get_var( "SHOW TABLES LIKE '{$table_name}'" ) != $table_name ) {
+            $sql = "CREATE TABLE $table_name (
+                    ID mediumint(9) NOT NULL AUTO_INCREMENT,
+                    `user_id` int(9) NOT NULL,
+                    `job_id` int(9) NOT NULL,
+                    `note` LONGTEXT NOT NULL,
+                    `created_date` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
                     PRIMARY KEY  (ID)
             )    $charset_collate;";
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

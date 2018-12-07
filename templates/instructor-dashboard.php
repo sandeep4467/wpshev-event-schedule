@@ -40,7 +40,7 @@
                 <tr>
                     <th>Conference</th>
                     <th>Purchase Information</th>
-                    <th>Notifications</th>
+                    <th><i class="fa fa-bell-o" aria-hidden="true"></i> Notifications</th>
                     <th>Client’s Page</th>
                 </tr>
             </thead>
@@ -65,8 +65,39 @@
                       echo $plan['label'];
                      ?> 
                      </td>
-                    <td>New Client<small>Please engage and setup calendar.</small></td>
-                    <td><a href="?single_page=true&user_id=<?php echo $client_id ?>">Enter Page</a></td>
+                    <td>
+                        <?php if($row->is_new_job == 1 ){ ?>
+                        New Client<small>Please engage and setup calendar.</small>
+                        <?php } else{ ?>
+                            Idle Follow-up <small>Please follow up with client’s progress.</small>
+                        <?php } ?>    
+
+                        <?php 
+                        $instructor_id = $user_id;
+                        $notification_dates = wpshevHelpers::get_notification_date($row->ID);
+                        $enable_next_month ='disable';
+
+                        if ($notification_dates) {
+                                 foreach ($notification_dates as $notification_date) {
+
+                                 $notification_start_date = date('Y-m-d',(strtotime ( '-5 day' , strtotime ( $notification_date ) ) ));
+                                 $notification_end_date = date('Y-m-d',(strtotime ( '0 day' , strtotime ( $notification_date ) ) ));
+
+                                //$paymentDate = strtotime("2019-01-03");
+                                $paymentDate = strtotime(date('Y-m-d'));
+                                $DateBegin = strtotime($notification_start_date);
+                                 
+                                $DateEnd = strtotime($notification_end_date);
+                                  if($paymentDate >= $DateBegin && $paymentDate <= $DateEnd) {
+                                   echo "<label class='notification-l'>Setup new month's event!</label>";
+                                      $enable_next_month ='enable'; 
+                                  } 
+                                }
+                        }
+                        echo "<input type='hidden' id='enable_next_month' value='".$enable_next_month."'>";
+                        ?>
+                    </td>
+                    <td><a href="?single_page=true&user_id=<?php echo $client_id ?>&job_id=<?php echo $row->ID ?>">Enter Page</a></td>
                 </tr>
                 <?php } ?>
             </tbody>

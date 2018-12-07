@@ -220,6 +220,7 @@ class wpshevFrontEndScripts
     //Frontend scripts. 
     wp_enqueue_script( 'jquery-ui-core' );
     wp_enqueue_script( 'jquery-ui-datepicker' );
+    wp_enqueue_script( 'jquery-ui-tabs' );
     
     self::enqueue_script('moment-js');
 		self::enqueue_script('fullcalendar');

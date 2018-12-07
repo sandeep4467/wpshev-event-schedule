@@ -195,16 +195,7 @@ function get_events_calender(customer_id, instructor_id, editable) {
                 print_calender(response.data, wpshev_ajax_object.calender_editable);
             }
             if (response.status == 'error') {
-                $.toast({
-                    heading: 'Error',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'error',
-                    position: {
-                        right: 20,
-                        top: 120
-                    },
-                });
+
             }
             $('.wpshev-popup-outer, .wpshev-custom-popup-overlay').fadeOut();
 

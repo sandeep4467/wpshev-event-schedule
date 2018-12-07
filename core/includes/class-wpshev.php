@@ -22,6 +22,7 @@ final class WpScheduleEvent
     public function init_hooks(){
         register_activation_hook( WPSHEV_PLUGIN_FILE, array( 'WPSHEV_Activate', 'install' ) );
         add_action( 'init', array('WPSHEV_Shortcodes', 'init') );
+        //add_action( 'init', array('wpshevPostTypes', 'jobs_post_type') );
         // AJAX hooks
         add_action('wp_ajax_ev_add_event', array('wpshevEvent', 'add_event') ); 
         add_action('wp_ajax_nopriv_ev_add_event', array('wpshevEvent', 'add_event') ); 
@@ -62,6 +63,14 @@ final class WpScheduleEvent
         add_action('wp_ajax_ev_start_job', array('wpshevAjax', 'start_job') ); 
         add_action('wp_ajax_nopriv_ev_start_job', array('wpshevAjax', 'start_job') ); 
 
+        add_action('wp_ajax_ev_add_note', array('wpshevAjax', 'add_note') ); 
+        add_action('wp_ajax_nopriv_ev_add_note', array('wpshevAjax', 'add_note') ); 
+
+        add_action('wp_ajax_ev_get_notes', array('wpshevAjax', 'get_notes') ); 
+        add_action('wp_ajax_nopriv_ev_get_notes', array('wpshevAjax', 'get_notes') ); 
+
+        add_action('wp_ajax_ev_delete_note', array('wpshevAjax', 'delete_note') ); 
+        add_action('wp_ajax_nopriv_ev_delete_note', array('wpshevAjax', 'delete_note') ); 
     }
     /*
     * Define Constants
@@ -106,5 +115,6 @@ final class WpScheduleEvent
         include_once WPSHEV_ABSPATH . 'core/includes/class-helpers.php';
         include_once WPSHEV_ABSPATH . 'core/includes/class-manage-payments.php';
         include_once WPSHEV_ABSPATH . 'core/includes/class-instructor-info.php';
+        include_once WPSHEV_ABSPATH . 'core/includes/class-post-types.php';
     }
 }

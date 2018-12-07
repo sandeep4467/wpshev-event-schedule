@@ -41,4 +41,5 @@
    $('.ev-popup-close').click(function(){
     $('.wpshev-popup-outer, .wpshev-custom-popup-overlay').fadeOut();
    })
+   $( "#wpshev_tabs" ).tabs();
 })(jQuery);

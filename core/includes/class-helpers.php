@@ -44,23 +44,14 @@ class wpshevHelpers
       return $temp;
     }
 
-    public static function get_notification_date($instructor_id, $user_id){
+    public static function get_notification_date($job_id){
       global $wpdb;
-      $table_name = $wpdb->prefix.'instructor_data';
-      $notification_id = $wpdb->get_var("SELECT `notification_id` FROM {$table_name} WHERE `instructor_id` = $instructor_id AND `assigned_client_id` = $user_id AND `status` = 'assigned'");
-
-      
-
-      if ($notification_id) {
-        $table_name = $wpdb->prefix.'wpshev_notification_data';
-          $data = $wpdb->get_row("SELECT `notification_dates` FROM {$table_name} WHERE `ID` = $notification_id", OBJECT);
-          if ($data) {
-            return unserialize($data->notification_dates);
-          }else{
-            return false;
-          }
+      $table_name = $wpdb->prefix.'wpshev_notification_data';
+      $data = $wpdb->get_row("SELECT `notification_dates` FROM {$table_name} WHERE `job_id` = $job_id", OBJECT);
+      if ($data) {
+        return unserialize($data->notification_dates);
+      }else{
+        return false;
       }
-
-      return false;
     }
 }

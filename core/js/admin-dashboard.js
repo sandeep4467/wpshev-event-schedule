@@ -8,6 +8,9 @@
             var access_limited_time_value = $('input[name=access_limited_time_value]').val();
             var level_id = $('input[name=level_id]').val();
             var price = $('input[name=price]').val();
+            var reassign = $('input[name=reassign]').val();
+            var job_id = $('input[name=job_id]').val();
+            var current_instructor_id = $('input[name=current_instructor_id]').val();
 
             var instructor_id = $('input[name=instructor_id]:checked').val();
 
@@ -19,6 +22,9 @@
                 access_limited_time_value: access_limited_time_value,
                 level_id: level_id,
                 price: price,
+                reassign: reassign,
+                job_id:job_id,
+                current_instructor_id:current_instructor_id,
                 security: wpshev_ajax_object.ajax_nonce
             };
             $.ajax({
@@ -52,8 +58,8 @@
                         });
                     }
                     window.setTimeout(function() {
-                       // location.reload(true);
-                    }, 5000)
+                        location.reload(true);
+                    }, 1000)
                 },
                 beforeSend: function() {
                     $('.ajax-laoder').show();

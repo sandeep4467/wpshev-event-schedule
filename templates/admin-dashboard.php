@@ -27,13 +27,23 @@
                           $label = 'Assign Instructor';
                           $date_label = 'Starting soon';
                           $ins_label = 'New Client<small>Please assign new instructor.</small>';
+                          $reassign = 'false';
+                          $job_id = '';
+                          $current_instructor_id = '';
 
                           $class = '';
                           $instructor_id = '';
                           if (WPSHEV_AdminDashboard::check_assign_status($client->ID)) {
                              $data = WPSHEV_AdminDashboard::check_assign_status($client->ID);
+                             
                              $class = 'assigned';
                              $label = 'Reassign Instructor';
+                             $reassign = 'true';
+                             // echo "<pre>";
+                             // var_dump($data);
+                             // echo "</pre>";
+                             $job_id = $data->ID;
+                             $current_instructor_id = $data->instructor_id;
                             
                              $date_label = date( "d-M-Y, h:i A", strtotime( $data->created_date));
 
@@ -54,7 +64,7 @@
                     <td><?php echo $ins_label; ?></td>
                     <td><?php echo $date_label; ?></td>
                     <td>
-                    	<a class="popup-modal <?php echo $class; ?>" href="#instructor-modal" data-user-id="<?php echo $client->ID ?>" data-instructor-id="<?php echo $instructor_id; ?>" data-access_limited_time_type="<?php echo $plan['access_limited_time_type']; ?>" data-access_limited_time_value="<?php echo $plan['access_limited_time_value']; ?>" data-level-id="<?php echo $plan['level_id']; ?>" data-price="<?php echo $plan['price']; ?>">
+                    	<a class="popup-modal <?php echo $class; ?>" href="#instructor-modal" data-user-id="<?php echo $client->ID ?>" data-instructor-id="<?php echo $instructor_id; ?>" data-access_limited_time_type="<?php echo $plan['access_limited_time_type']; ?>" data-access_limited_time_value="<?php echo $plan['access_limited_time_value']; ?>" data-level-id="<?php echo $plan['level_id']; ?>" data-price="<?php echo $plan['price']; ?>" data-reassign="<?php echo $reassign; ?>" data-job_id="<?php echo $job_id; ?>" data-current_instructor_id="<?php echo $current_instructor_id; ?>">
                           <?php echo $label; ?>
                       </a>
                     </td>
@@ -77,6 +87,9 @@
     <input type="hidden" name="access_limited_time_value" value="">
     <input type="hidden" name="level_id" value="">
     <input type="hidden" name="price" value="">
+    <input type="hidden" name="reassign" value="">
+    <input type="hidden" name="job_id" value="">
+    <input type="hidden" name="current_instructor_id" value="">
 		<?php 
          $instructors = get_users( array('role'=> 'fit_instructor') ); 
          foreach ($instructors as $instructor) { ?>
@@ -111,12 +124,18 @@
        var access_limited_time_value = jQuery(this).data('access_limited_time_value');
        var level_id = jQuery(this).data('level-id');
        var price = jQuery(this).data('price');
+       var reassign = jQuery(this).data('reassign');
+       var job_id = jQuery(this).data('job_id');
+       var current_instructor_id = jQuery(this).data('current_instructor_id');
 
        jQuery('input[name=client_user_id]').val(user_id);
        jQuery('input[name=access_limited_time_type]').val(access_limited_time_type);
        jQuery('input[name=access_limited_time_value]').val(access_limited_time_value);
        jQuery('input[name=level_id]').val(level_id);
        jQuery('input[name=price]').val(price);
+       jQuery('input[name=reassign]').val(reassign);
+       jQuery('input[name=job_id]').val(job_id);
+       jQuery('input[name=current_instructor_id]').val(current_instructor_id);
 
        if (instructor_id != '') {
          jQuery('#instructor_' + instructor_id).attr('checked', true);

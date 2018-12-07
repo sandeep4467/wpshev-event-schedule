@@ -1,1 +1,0 @@
-# wpshev-event-schedule

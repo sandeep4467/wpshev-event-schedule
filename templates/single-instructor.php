@@ -1,15 +1,36 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <?php 
+global $wpdb;
+$prefix = $wpdb->prefix;
+$db_name = $wpdb->dbname;
+$table_name = $prefix . 'instructor_data';
+
+if (isset($_GET['job_id'])) {
+ $wpdb->update( 
+    $table_name, 
+    array( 
+        'is_new_job' => 0, 
+    ), 
+    array( 'ID' => $_GET['job_id'] ), 
+    array( 
+        '%d'  
+    ), 
+    array( '%d' ) 
+);
+
+} 
 if (isset($_GET['user_id'])) { ?> 
   <?php if ( !empty($_GET['user_id'])) { ?>
 
         <?php 
         $client_id = $_GET['user_id'];
         $instructor_id = get_current_user_id();
+        $job_id = $_GET['job_id'];
         $user = wp_get_current_user();
         if ( in_array( 'fit_instructor', (array) $user->roles ) ) { ?>
             <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
             <input type="hidden" name="instructor_id" value="<?php echo $instructor_id; ?>">
+            <input type="hidden" name="job_id" value="<?php echo $job_id; ?>">
             <input type="hidden" name="by" value="instructor">
         <?php }else{
 
@@ -33,32 +54,26 @@ if (isset($_GET['user_id'])) { ?>
             <span>Hold on! calendar is loading...</span>
         </div>
 
+            <?php 
+            $notification_dates = wpshevHelpers::get_notification_date($_GET['job_id']);
 
+            if ($notification_dates) {
+                    foreach ($notification_dates as $notification_date) {
 
+                     $notification_start_date = date('Y-m-d',(strtotime ( '-5 day' , strtotime ( $notification_date ) ) ));
+                     $notification_end_date = date('Y-m-d',(strtotime ( '0 day' , strtotime ( $notification_date ) ) ));
 
-<?php 
-$notification_dates = wpshevHelpers::get_notification_date($instructor_id, $client_id);
-$enable_next_month ='disable';
-foreach ($notification_dates as $notification_date) {
-
- $notification_start_date = date('Y-m-d',(strtotime ( '-5 day' , strtotime ( $notification_date ) ) ));
- $notification_end_date = date('Y-m-d',(strtotime ( '0 day' , strtotime ( $notification_date ) ) ));
-
-//$paymentDate = strtotime("2018-12-22");
-$paymentDate = strtotime(date('Y-m-d'));
-$DateBegin = strtotime($notification_start_date);
- 
-
-$DateEnd = strtotime($notification_end_date);
-  if($paymentDate >= $DateBegin && $paymentDate <= $DateEnd) {
-   echo "<div class='notification'><i class='fa fa-bell-o' aria-hidden='true'></i>
-       Notification: Setup new month's event!</div>";
-      $enable_next_month ='enable'; 
-  } 
-
-}
-  echo "<input type='hidden' id='enable_next_month' value='".$enable_next_month."'>";
-?>
+                    //$paymentDate = strtotime("2019-01-03");
+                    $paymentDate = strtotime(date('Y-m-d'));
+                    $DateBegin = strtotime($notification_start_date);
+                     
+                    $DateEnd = strtotime($notification_end_date);
+                      if($paymentDate >= $DateBegin && $paymentDate <= $DateEnd) {
+                          echo "<style>body button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right{display:block !important;}</style>";
+                      } 
+                    }
+            }
+            ?>
 
         <div id='calendar'>
         </div>
@@ -84,7 +99,14 @@ $DateEnd = strtotime($notification_end_date);
                 <div class="clear"></div>
                 </div>
                 <div id="client-information">
-                    <h2>Client’s Information</h2>
+
+
+				<div id="wpshev_tabs" class="wpshev_tabs">
+				  <ul>
+				    <li><a href="#tabs-1"><i class="fa fa-user-o" aria-hidden="true"></i> Client’s Information</a></li>
+				    <li><a href="#tabs-2"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> My Notes</a></li>
+				  </ul>
+				  <div id="tabs-1">
                     <div class="client-information-wrap">
                      <div class="inline-info">
                         <div class="info">
@@ -130,17 +152,31 @@ $DateEnd = strtotime($notification_end_date);
                             <label>Goals of weight, body type or particular toning of body parts.</label>
                         </div>
                     </div>
+				  </div>
+				  <div id="tabs-2">
+				    <div class="add-notes">
+				    	<div id="note-container">
+
+				    	</div>
+				    	<textarea id="note" placeholder="Add note..."></textarea>
+				    	<button id="send-note"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+				    </div>
+				  </div>
+				</div>
+
+
                 </div>
             </div>
             <div class="chat-right">
                 <div class="user-status-right">
-                <span class="user_name"><?php echo $client->first_name . ' ' . $client->last_name; ?></span><span class="status" title="Offline"></span>    
+                <span class="user_name"><?php echo $client->first_name . ' ' . $client->last_name; ?></span><span class="status" title="Offline"></span>  
+                <button id="new-message">New Message</button>  
                 </div>
                 <div class="chat-window" id="chat-window">
                     <div class="user-chat msg_container_base" id="user-chat">
 
                     </div>
-                    <button id="new-message">New Message</button>
+                    
                     <div class="chat-footer" style="display: none;">
                         <textarea id="chat-message" placeholder="Type your message here..."></textarea>
                       <div class="bottom-actions">
@@ -248,8 +284,11 @@ foreach ($notification_dates as $notification_date) {
                         }
             }); 
             jQuery('#new-message').click(function(){
+                jQuery(this).hide();
                 jQuery('.chat-footer').fadeIn();
                 jQuery('#user-chat').css('max-height' , '371px');
+                jQuery("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                jQuery("#chat-message").focus();
             });  
             jQuery('#cancel').click(function(){
                 jQuery('.chat-footer').fadeOut();
@@ -324,10 +363,15 @@ foreach ($notification_dates as $notification_date) {
                                 url: '<?php echo admin_url('admin-ajax.php'); ?>',
                                 data: data
                             });
-            }      
-
+            }     
         </script>
   <?php }else{  ?>
     Please select client.
   <?php } ?>
 <?php  } ?> 
+
+<style type="text/css">
+    .toe-wrapper select option {
+    color: #000;
+}
+</style>
