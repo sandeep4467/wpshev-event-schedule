@@ -13,9 +13,8 @@
         $month_year = $_GET['month_year'];
 
         $payments = wpshevManagePayment::get_payments($instructor_id, $month_year);
-
     ?>
-
+<div class="back-to"><a href="<?php echo get_permalink(563); ?>"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to all clients</a></div>
 <div class="instructor-profile">
 
 <div class="profile-left">
@@ -58,14 +57,10 @@
 
     </div>
 
-    <span>Payment type: <a target="_blank" id="edit-payment" href="<?php echo get_edit_user_link( $instructor_id ); ?>">Edit</a></span>
+    <span>Payment type: Paypal</span>
 
     <div class="payment-type">
-
-        Paypal
-
-        <span class="paypal-email"><?php echo get_user_meta( $instructor_id, 'paypalemail', true ) ?></span>
-
+        Paypal: <span class="paypal-email"><?php echo get_user_meta( $instructor_id, 'paypalemail', true ) ?></span>
     </div>
 
     <div class="instructor_percentage">
@@ -76,7 +71,7 @@
 
             if ( ! empty( $instructor_percentage ) ) {
 
-                echo 'Instructor Commission: ' . $instructor_percentage . '%' . '<a href="'.get_edit_user_link( $instructor_id ).'"> Edit</a>';
+                echo 'Your Commission: ' . $instructor_percentage . '%';
 
             }else{
 
@@ -191,7 +186,7 @@
 
                 $class = '';
 
-                echo "<li class='".$class."'><a href='?instructor_id=".$instructor_id."&month_year=".$month_digit."-".$arr[1]."'>" .$month. " " . $arr[1] . "</a></li>";
+                echo "<li class='".$class."'><a href='?payment_view=true&instructor_id=".$instructor_id."&month_year=".$month_digit."-".$arr[1]."'>" .$month. " " . $arr[1] . "</a></li>";
 
             }
 
@@ -214,10 +209,6 @@
                  0 Payment
             <?php } ?> 
             </span></h2>
-            <button id="mark-paid">MARK AS PAID</button>
-
-            <a id="add-payment" class="ev-popup-with-zoom-anim" href="#add-payment-form"><i class="fa fa-usd" aria-hidden="true"></i> Add New Payment</a>
-
         </div>
 
         <table id="data-list">
@@ -225,19 +216,10 @@
             <thead>
 
                 <tr>
-
-                    <th width="7%"></th>
-
                     <th>Name</th>
-
                     <th>Purchased</th>
-
                     <th>Current Payment Cycle</th>
-
                     <th>Amount</th>
-
-                    <th>Action</th>
-
                     <th>Status</th>
 
                 </tr>
@@ -253,12 +235,6 @@
                         $user_info = get_userdata($payment->assigned_client_id); 
                         ?>
                         <tr id="row_<?php echo $payment->ID; ?>">
-
-                            <td width="7%">
-
-                                <input type="checkbox" name="update_payment_status" value="<?php echo $payment->ID; ?>">
-
-                            </td>
 
                             <td>
 
@@ -289,8 +265,6 @@
                             <td><?php echo $payment->bill_cycle; ?></td>
 
                             <td>$<?php echo $payment->monthly_payment; ?></td>
-
-                            <td><button class="delete" id="delete_<?php echo $payment->ID; ?>" data-id="<?php echo $payment->ID; ?>">Delete</button></td>
 
                             <td>
 
@@ -327,47 +301,6 @@
 </div>
 
 
-
-<!-- form itself -->
-<form id="add-payment-form" class="white-popup-block white-popup mfp-hide" _lpchecked="1">
-    <h1>Add new payment</h1>
-    <fieldset style="border:0;">
-        <ul>
-            <li>
-                <input type="hidden" name="month_year" id="month_year" value="<?php echo $month_year; ?>">
-                <input type="hidden" name="" id="instructor_id" value="<?php echo $instructor_id; ?>">
-            </li>
-            <li>
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" value="ADMIN" readonly="" required="">
-            </li>
-            <li>
-                <label for="purchased">Purchased</label>
-                <input id="purchased" name="purchased" type="text" required="">
-            </li>
-            <li>
-                <label for="payment_cycle">Current Payment Cycle</label>
-                <input id="payment_cycle" name="payment_cycle" value="N/A" readonly="" type="text" required="">
-            </li>
-            <li>
-                <label for="amount">Amount</label>
-                <input id="amount" name="amount" type="text" required="">
-            </li>
-            <li>
-                <label for="status">Status</label>
-                <select required="" id="status">
-                    <option value="">Please select...</option>
-                    <option value="paid">Paid</option>
-                    <option value="unpaid">Unpaid</option>
-                </select>
-            </li>
-            <li>
-                <button id="add-btn" type="submit">Add</button>
-                <img id="loader" src="https://bearishfitness.com/wp-content/uploads/2019/01/5.gif" style="display: none;width: 26px;position: relative;left: 20px;top: 7px;">
-            </li>
-        </ul>
-    </fieldset>
-</form>
 <style type="text/css">
 .disable-btn {
     opacity: 0.5;
@@ -424,5 +357,9 @@ button#add-btn {
     color: #fff;
     text-align: center;
     line-height: 35px;
+}
+.back-to {
+    border-bottom: 1px solid #e9e9e9;
+    padding: 10px 5px;
 }
 </style>

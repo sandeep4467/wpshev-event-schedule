@@ -1,4 +1,5 @@
 var $ = jQuery.noConflict();
+
 function load_single_event(id, editable) {
     var data = {
         action: 'ev_get_event',
@@ -10,21 +11,17 @@ function load_single_event(id, editable) {
         url: wpshev_ajax_object.admin_url,
         data: data,
         success: function(response) {
-
             if (response.status == 'success') {
                 var time = 'Full Day';
                 var html = '';
-
                 var id = response.data.id;
                 var title = response.data.title;
                 var full_day = response.data.full_day;
                 var event_type = response.data.event_type;
                 var content = response.data.description;
-
                 if (full_day != 1) {
                     time = moment(response.data.event_time, 'hh:mm A').format('hh:mm A');
                 }
-
                 var flag_class = '';
                 if (event_type == 'workout') {
                     var flag_class = 'workout';
@@ -33,15 +30,11 @@ function load_single_event(id, editable) {
                 } else {
                     var flag_class = 'rest';
                 }
-
                 html += '<h2><span class="flag ' + flag_class + '"></span>' + title + ' - ' + time + '</h2>';
                 html += '<div class="event-content">' + content + '</div>';
                 if (editable != 'false') {
                     html += '<button data-id="' + id + '" id="delete-event">Delete Event</button>';
                 }
-
-
-
                 $.magnificPopup.open({
                     items: {
                         src: '<div class="white-popup">' + html + '</div>', // can be a HTML string, jQuery object, or CSS selector
@@ -49,7 +42,6 @@ function load_single_event(id, editable) {
                     }
                 });
             }
-
             if (response.status == 'error') {
                 $.toast({
                     heading: 'Error',
@@ -63,7 +55,6 @@ function load_single_event(id, editable) {
                 });
             }
             $('.wpshev-popup-outer, .wpshev-custom-popup-overlay').fadeOut();
-
         },
         beforeSend: function() {
             $('.ajax-laoder').show();
@@ -79,25 +70,19 @@ function load_single_event(id, editable) {
 }
 
 function print_calender(obj, editable) {
-
     var events = new Array();
-
     var event_title = '';
     var event_start = '';
     var full_day = '';
     var event_time = '';
     var event_type = '';
-
     $.each(obj, function(index, value) {
-
         id = obj[index].id;
         event_title = obj[index].title;
         event_start = moment(obj[index].event_date).format("YYYY-MM-DD");
         full_day = obj[index].full_day;
         event_time = obj[index].event_time;
         event_type = obj[index].event_type;
-
-
         switch (event_type) {
             case 'rest':
                 event_color = '#ed7a14';
@@ -108,7 +93,6 @@ function print_calender(obj, editable) {
             default:
                 event_color = '#00a651';
         }
-
         if (full_day == 1) {
             events.push({
                 'id': id,
@@ -125,16 +109,19 @@ function print_calender(obj, editable) {
                 'color': event_color
             });
         }
-
     });
-
     var settings = {
         showNonCurrentDates: false,
-        defaultView: 'month',
         header: {
             left: 'prev, title',
             center: '',
             right: 'month,agendaWeek,listWeek, next'
+        },
+        validRange: function() {
+            return {
+                start: jQuery('#job_start_date').val(),
+                end: moment('2050-12-31'),
+            };
         },
         eventLimit: true,
         dayNamesShort: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -146,6 +133,12 @@ function print_calender(obj, editable) {
         }
     };
 
+    if ($(window).width() < 960) {
+      settings['defaultView'] =  'list';
+    }
+    else {
+       settings['defaultView'] = 'month';
+    }
 
     if (!$.isEmptyObject(obj)) {
         settings['events'] = events;
@@ -173,13 +166,11 @@ function print_calender(obj, editable) {
                 }
             }
     }
-
     $('#wpshev-loader').hide();
     $('#calendar').fullCalendar(settings);
 }
 
 function get_events_calender(customer_id, instructor_id, editable) {
-
     var data = {
         action: 'ev_get_events',
         customer_id: customer_id,
@@ -194,11 +185,8 @@ function get_events_calender(customer_id, instructor_id, editable) {
             if (response.status == 'success') {
                 print_calender(response.data, wpshev_ajax_object.calender_editable);
             }
-            if (response.status == 'error') {
-
-            }
+            if (response.status == 'error') {}
             $('.wpshev-popup-outer, .wpshev-custom-popup-overlay').fadeOut();
-
         },
         beforeSend: function() {
             $('.ajax-laoder').show();
@@ -212,13 +200,12 @@ function get_events_calender(customer_id, instructor_id, editable) {
         }
     });
 }
-
 var show_feedback_popup = $('#show_feedback_popup').val();
 if (show_feedback_popup == 'true') {
-$.magnificPopup.open({
-  items: {
-    src: "<div class='white-popup feedback-popup'><h3>Let us know how did it go!</h3><textarea id='feedback' placeholder='Write your feedback here.'></textarea><small>Next month will automatically starts in 5 days, if review is not submitted.</small><button id='submit-feedback'>Submit Review & Proceed</button><div class='clear'></div></div>",
-    type: 'inline'
-  }
-});
+    $.magnificPopup.open({
+        items: {
+            src: "<div class='white-popup feedback-popup'><h3>Let us know how did it go!</h3><textarea id='feedback' placeholder='Write your feedback here.'></textarea><small>Next month will automatically starts in 5 days, if review is not submitted.</small><button id='submit-feedback'>Submit Review & Proceed</button><div class='clear'></div></div>",
+            type: 'inline'
+        }
+    });
 }

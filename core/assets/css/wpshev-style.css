@@ -1,3 +1,59 @@
+.ui-tabs .ui-tabs-nav li {
+    float: left;
+    margin: 0;
+    width: 50%;
+}
+#chat-section .ui-tabs .ui-tabs-nav li a {
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#chat-section .ui-tabs .ui-tabs-nav {
+    padding: 0;
+    margin: 0 -20px !important;
+}
+.wpshev_scheduling_calender button,
+.wpshev_scheduling_calenderbutton [disabled]:hover,
+.wpshev_scheduling_calenderbutton button[disabled]:focus,
+.wpshev_scheduling_calenderbutton input[type="button"],
+.wpshev_scheduling_calenderbutton input[type="button"][disabled]:hover,
+.wpshev_scheduling_calenderbutton input[type="button"][disabled]:focus,
+.wpshev_scheduling_calenderbutton input[type="reset"],
+.wpshev_scheduling_calenderbutton input[type="reset"][disabled]:hover,
+.wpshev_scheduling_calenderbutton input[type="reset"][disabled]:focus,
+.wpshev_scheduling_calenderbutton input[type="submit"],
+.wpshev_scheduling_calenderbutton input[type="submit"][disabled]:hover,
+.wpshev_scheduling_calenderbutton input[type="submit"][disabled]:focus {
+	border: 0;
+	border-radius: 2px;
+	color: #fff;
+	font-weight: 700;
+	letter-spacing: 0.046875em;
+	line-height: 1;
+	padding: 0.84375em 0.875em 0.78125em;
+	text-transform: uppercase;
+}
+
+.wpshev_scheduling_calender figure {
+	margin: 0;
+}
+
+.wpshev_scheduling_calender h1,
+.wpshev_scheduling_calender h2,
+.wpshev_scheduling_calender h3,
+.wpshev_scheduling_calender h4,
+.wpshev_scheduling_calender h5,
+.wpshev_scheduling_calender h6 {
+	letter-spacing: unset !important; 
+	font-family: 'Myriad Pro Regular' !important;
+	text-transform: unset;
+}
+.info-edit {
+	color: #4564fd;
+	text-decoration: ;
+}
+
 @font-face {
 	font-family: 'Myriad Pro italic';
 	src: url('../fonts/MyriadPro-It.woff2') format('woff2'), url('../fonts/MyriadPro-It.woff') format('woff');
@@ -71,21 +127,18 @@
 body {
 	font-family: 'Myriad Pro Regular' !important;
 }
-button.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
-    display: none;
-}
-button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right {
-    display: none !important;
-}
+
 .admin-notification {
-    background: #ffead0;
-    border: 1px solid #f9d3a4;
-    padding: 8px 20px;
-    border-radius: 3px;
-    margin-bottom: 20px;
+	background: #ffead0;
+	border: 1px solid #f9d3a4;
+	padding: 8px 20px;
+	border-radius: 3px;
+	margin-bottom: 20px;
 }
+
 /* Styles for dialog window */
-#small-dialog, .white-popup {
+#small-dialog,
+.white-popup {
 	background: white;
 	padding: 20px 30px;
 	text-align: left;
@@ -96,10 +149,13 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 }
 
 /**
+
  * Fade-zoom animation for first dialog
+
  */
 
 /* start state */
+
 .my-mfp-zoom-in .zoom-anim-dialog {
 	opacity: 0;
 	-webkit-transition: all 0.2s ease-in-out;
@@ -153,10 +209,13 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 }
 
 /**
+
  * Fade-move animation for second dialog
+
  */
 
 /* at start */
+
 .my-mfp-slide-bottom .zoom-anim-dialog {
 	opacity: 0;
 	-webkit-transition: all 0.2s ease-out;
@@ -225,7 +284,12 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 .ev-form-row .ev-form-inline:nth-child(2n+2) {
 	margin-right: 0;
 }
-
+.wp-switch-editor {
+	color: #666 !important;
+}
+#kv_frontend_editor_ifr {
+	height: 200px !important;
+}
 .wpshev-popup-outer {
 	top: 0;
 	left: 0;
@@ -318,6 +382,8 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 .white-popup h2 {
 	font-size: 32px;
 	display: inline-block;
+	color: #fff;	/* font-size: 17px; */
+	text-transform: unset;
 }
 
 #delete-event {
@@ -327,6 +393,8 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 	font-weight: normal;
 	font-size: 13px;
 	padding: 8px 10px;
+	border: 0;
+	color: #fff;
 }
 
 .event-content {
@@ -361,6 +429,7 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 	color: #fff;
 	font-size: 31px;
 	margin-top: 20px;
+	padding: 10px 0;
 }
 
 .ins-block.ins-block1 .price {
@@ -419,12 +488,14 @@ button.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right 
 	margin-bottom: 0;
 }
 
-.fitness-data-table table tr td, .fitness-data-table table tr th {
+.fitness-data-table table tr td,
+.fitness-data-table table tr th {
 	border-color: #ededed;
 	padding: 10px 20px;
 }
 
-.fitness-data-table table tr td:last-child, .fitness-data-table table tr th:last-child {
+.fitness-data-table table tr td:last-child,
+.fitness-data-table table tr th:last-child {
 	border-right: 0;
 }
 
@@ -524,7 +595,8 @@ table.ui-datepicker-calendar {
 	font-family: 'Myriad Pro Semibold';
 }
 
-.fc-state-active, .fc-state-down {
+.fc-state-active,
+.fc-state-down {
 	background-color: #2a9ef5 !important;
 	background-image: none;
 	box-shadow: none;
@@ -560,7 +632,8 @@ table.ui-datepicker-calendar {
 	color: #2a9ef5;
 }
 
-.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover, .fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover {
+.fc-prev-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover,
+.fc-next-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right:hover {
 	background: #fff !important;
 }
 
@@ -573,12 +646,13 @@ table.ui-datepicker-calendar {
 	font-weight: normal;
 	font-size: 13.8px !important;
 	text-transform: capitalize;
-	width: 150px;
+	width: auto;
 	height: 36px !important;
 	border: 1px solid #249533;
 	border-radius: 3px;
 	font-family: 'Myriad Pro Semibold' !important;
 	margin-left: 30px !important;
+	color: #fffl
 }
 
 .muscle-icon {
@@ -616,6 +690,7 @@ table.ui-datepicker-calendar {
 
 .wpshev-custom-popup h1 {
 	color: #fff;
+	font-size: 20px;
 }
 
 .toe-wrapper {
@@ -631,7 +706,9 @@ table.ui-datepicker-calendar {
 	padding-top: 3px;
 }
 
-.meal-active, .rest-active, .workout-active {
+.meal-active,
+.rest-active,
+.workout-active {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	text-indent: 1px;
@@ -661,6 +738,7 @@ table.ui-datepicker-calendar {
 .rest-active {
 
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ed7a14+0,f29f55+100 */
+
 	background: #ed7a14; /* Old browsers */
 	background: -moz-linear-gradient(left, #ed7a14 0%, #f29f55 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left, #ed7a14 0%, #f29f55 100%); /* Chrome10-25,Safari5.1-6 */
@@ -671,6 +749,7 @@ table.ui-datepicker-calendar {
 .workout-active {
 
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ed145b+0,f34f85+100 */
+
 	background: #ed145b; /* Old browsers */
 	background: -moz-linear-gradient(left, #ed145b 0%, #f34f85 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left, #ed145b 0%, #f34f85 100%); /* Chrome10-25,Safari5.1-6 */
@@ -684,17 +763,28 @@ table.ui-datepicker-calendar {
 	position: relative;
 }
 
-#ev-add-event input[type="text"], #ev-add-event input[type="email"], #ev-add-event input[type="tel"] {
+#ev-add-event input[type="text"],
+#ev-add-event input[type="email"],
+#ev-add-event input[type="tel"] {
 	background: #273142;
 	border: 1px solid #313d4f;
 	font-size: 14px;
 	color: #fff;
 	padding: 12px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#event_title,
+#event-start-date {
+	width: 100%;
 }
 
 #ev-add-event::placeholder {
 
 	/* Chrome, Firefox, Opera, Safari 10.1+ */
+
 	color: #fff;
 	opacity: 1; /* Firefox */
 }
@@ -702,12 +792,14 @@ table.ui-datepicker-calendar {
 #ev-add-event:-ms-input-placeholder {
 
 	/* Internet Explorer 10-11 */
+
 	color: #fff;
 }
 
 #ev-add-event::-ms-input-placeholder {
 
 	/* Microsoft Edge */
+
 	color: #fff;
 }
 
@@ -802,6 +894,10 @@ table.ui-datepicker-calendar {
 	font-size: 13.8px;
 	font-weight: normal;
 	text-transform: capitalize;
+	border: 0;
+	color: #fff;
+	padding: 11px 20px;
+	border-radius: 5px;
 }
 
 #ev-add-event label {
@@ -811,6 +907,7 @@ table.ui-datepicker-calendar {
 #wp-kv_frontend_editor-wrap {
 
 	/* position: relative; */
+
 	margin-top: -27px;
 }
 
@@ -826,7 +923,9 @@ table.ui-datepicker-calendar {
 	border-bottom: 0;
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
 	border: 0;
 	background: #fff;
 	font-size: 14px;
@@ -836,11 +935,18 @@ table.ui-datepicker-calendar {
 	background: #38b349;
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
 	border: 0;
 }
 
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
 	border: 0;
 	background: #f1f1f1;
 	font-weight: normal;
@@ -861,6 +967,9 @@ table.ui-datepicker-calendar {
 	border-right: 1px solid #e6e9ec;
 	float: left;
 	width: 37%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .chat-left .user-img {
@@ -872,6 +981,9 @@ table.ui-datepicker-calendar {
 	overflow: hidden;
 	position: relative;
 	margin-right: 18px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .chat-left .user-img img {
@@ -889,10 +1001,12 @@ table.ui-datepicker-calendar {
 .user_name {
 	color: #2399f1;
 }
+
 .user_name small {
 	color: #585d68;
 	display: block;
 }
+
 .chat-left .status {
 	background: #2399f1;
 	width: 10px;
@@ -920,8 +1034,9 @@ table.ui-datepicker-calendar {
 }
 
 #client-information {
-	padding: 0;
+	padding: 10px 20px;
 	border-top: 1px solid #e6e9ec;
+	padding-top: 0;
 }
 
 #client-information h2 {
@@ -929,62 +1044,88 @@ table.ui-datepicker-calendar {
 	color: #354052;
 	font-weight: 300;
 }
+
 div#wpshev_tabs {
-    border: 0;
-    margin: 0;
-    padding: 0;
+	border: 0;
+	margin: 0;
+	padding: 0;
 }
+
 #chat-section .ui-tabs .ui-tabs-nav {
-    margin: 0;
-    padding: .2em .2em 0;
-    border-radius: 0;
-    margin-top: -1px;
+	margin: 0;
+	padding: .2em .2em 0;
+	border-radius: 0;
+	margin-top: -1px;
 }
+
 #chat-section .ui-tabs .ui-tabs-nav li a {
-    box-shadow: none;
-    background: #2097ef;
-    color: white;
+	box-shadow: none;
+	background: #2097ef;
+	color: white;
 }
-#chat-section .ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
-    cursor: text;
-    background: #fff;
-    color: #585d68 !important;
+
+#chat-section .ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+	cursor: text;
+	background: #fff;
+	color: #585d68 !important;
 }
+
 #chat-section .ui-tabs .ui-tabs-panel {
-    padding: 1em 1em;
+	padding: 1em 1em;
 }
-#chat-section .ui-tabs .ui-tabs-nav{
-	padding:0;
+
+#chat-section .ui-tabs .ui-tabs-nav {
+	padding: 0;
 }
+
 .note-repater {
-    background: #f5f5f5;
-    font-size: 13px;
-    margin-bottom: 20px;
-    padding: 9px 15px;
-    position: relative;
-    padding-right: 34px;
-    border-radius: 5px;
+	background: #f5f5f5;
+	font-size: 13px;
+	margin-bottom: 20px;
+	padding: 9px 15px;
+	position: relative;
+	padding-right: 34px;
+	border-radius: 5px;
 }
+
 button.delete-note {
-    background: none;
-    color: #f44336;
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 15px;
+	background: none;
+	color: #f44336;
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 15px;
 }
+
+.fc .fc-button-group > * {
+	color: #333;
+}
+
+.fc-button-group .fc-state-active {
+	color: #fff;
+}
+
 textarea#note {
-    padding: 3px 10px;
-    border: 1px solid #e6e9ec;
-    resize: vertical;
-    font-size: 14px !important;
-    margin-bottom: 20px;
+	padding: 3px 10px;
+	border: 1px solid #e6e9ec;
+	resize: vertical;
+	font-size: 14px !important;
+	margin-bottom: 20px;
+	display: block;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
+
 button#send-note {
-    background: #2097ef;
-    font-size: 14px;
-    width: 200px;
+	background: #2097ef;
+	font-size: 14px;
+	width: 200px;
 }
+
 .info {
 	color: #354052;
 	font-size: 14px;
@@ -1028,7 +1169,8 @@ button#send-note {
 	margin-bottom: 30px;
 }
 
-#send, #new-message {
+#send,
+#new-message {
 	background: #2097ef;
 	text-transform: capitalize;
 	width: 200px;
@@ -1036,7 +1178,8 @@ button#send-note {
 	font-size: 14px;
 }
 
-#new-message, #send {
+#new-message,
+#send {
 	float: right;
 }
 
@@ -1053,6 +1196,10 @@ button#send-note {
 	background: #ffffff;
 	border-top: 1px solid #e6e9ec;
 	border-left: 1px solid #e6e9ec;
+}
+
+.user-status-right {
+	margin-bottom: 20px;
 }
 
 #new-message {
@@ -1077,6 +1224,8 @@ button#send-note {
 	background: #fff;
 	resize: vertical;
 	font-size: 12px;
+	font-family: arial;
+	padding: 10px;
 }
 
 #cancel {
@@ -1188,7 +1337,7 @@ button#send-note {
 }
 
 .instructor-profile .ins-block {
-	width: 32%;
+	width: 31%;
 	margin-right: 2%;
 	float: left;
 }
@@ -1257,7 +1406,8 @@ button#send-note {
 	cursor: pointer;
 }
 
-#next-year, #prev-year{
+#next-year,
+#prev-year {
 	color: #2e41a7;
 	background: no-repeat;
 	float: right;
@@ -1266,7 +1416,8 @@ button#send-note {
 	font-family: 'Myriad Pro Semibold';
 	margin-bottom: 15px;
 }
-#prev-year{
+
+#prev-year {
 	float: left;
 }
 
@@ -1281,7 +1432,7 @@ button#send-note {
 
 .payment-data {
 	float: left;
-	width: 72%;
+	width: 70%;
 	border: 1px solid #ededed;
 	border-radius: 5px;
 	margin-top: 34px;
@@ -1319,24 +1470,29 @@ button#send-note {
 	border-radius: 3px;
 	font-family: 'Myriad Pro Semibold' !important;
 	padding: 0;
+	color: #fff;
+	cursor: pointer;
 }
 
 #add-payment {
 	float: right;
-	background: #39b54a;
-	background: -moz-linear-gradient(left, #39b54a 0%, #33aa44 100%);
-	background: -webkit-linear-gradient(left, #39b54a 0%, #33aa44 100%);
-	background: linear-gradient(to right, #39b54a 0%, #33aa44 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39b54a', endColorstr='#33aa44', GradientType=1);
+	background: #b33838;
+    border: 0;
+    width: 183px;
+    cursor: pointer;
 	font-weight: normal;
 	font-size: 13.8px !important;
 	text-transform: uppercase;
-	width: 150px;
+	width: 183px;
 	height: 36px !important;
-	border: 1px solid #249533;
 	border-radius: 3px;
 	font-family: 'Myriad Pro Semibold' !important;
 	padding: 0;
+}
+
+.wpshev_scheduling_calender table tbody tr,
+.wpshev_scheduling_calender table thead tr {
+	border: 0;
 }
 
 .delete {
@@ -1347,7 +1503,10 @@ button#send-note {
 	text-transform: capitalize;
 	background: #b13737;
 	padding: 10px 23px;
+	border: 0 !important;
+	color: #fff !important;
 }
+
 .unpaid {
 	background: #ff0000;
 	color: #fff;
@@ -1356,6 +1515,7 @@ button#send-note {
 	padding: 2px 6px;
 	border-radius: 4px;
 }
+
 .paid {
 	background: #29a537;
 	color: #fff;
@@ -1364,59 +1524,73 @@ button#send-note {
 	padding: 2px 6px;
 	border-radius: 4px;
 }
+
 #data-list {
 	border-left: 0;
 	border-right: 0;
 	border-color: #ededed;
 	margin-bottom: 0;
 }
-#data-list tr td{
-	border:0;
+
+#data-list tr td {
+	border: 0;
 }
-#data-list tr td{
+
+#data-list tr td {
 	border-bottom: 1px solid #ededed;
 }
-#data-list tr, #data-list td, #data-list th{
+
+#data-list tr,
+#data-list td,
+#data-list th {
 	border-color: #ededed;
 }
+
 #data-list tr td:first-child {
-text-align: center;
+	text-align: center;
 }
 
 #data-list tr:last-child td {
 	border-bottom: 0;
 }
+
 #data-list th {
 	border: 0;
 	background: #2e41a7;
 	color: #fff;
 	font-size: 14px;
 }
-#data-list td{
-font-size: 14px;
+
+#data-list td {
+	font-size: 14px;
 }
+
 .notification {
 	background: #ffd56d;
 	margin-bottom: 20px;
 	padding: 10px 20px;
 	border-radius: 5px;
 }
+
 .welcome-message h2 {
 	color: #7f8fa4;
 	font-family: 'Myriad Pro Bold';
 	font-size: 30px;
 }
+
 .welcome-message p {
 	color: #7f8fa4;
 	font-family: 'Myriad Pro Semibold';
 	font-size: 19px;
 	margin: 0;
 }
+
 .proceed-to-start.disable-btn {
 	opacity: 0.7;
-	cursor: ;
+	cursor:;
 	pointer-events: none;
 }
+
 .proceed-to-start {
 	background: #39b54a;
 	color: #fff;
@@ -1424,23 +1598,27 @@ font-size: 14px;
 	border-radius: 6px;
 	border: 1px solid #249533;
 }
+
 .message-col {
 	float: left;
 	width: 85%;
 }
+
 .right-col {
 	float: right;
 }
+
 .jconfirm .jconfirm-box {
-    background: white;
-    border-radius: 4px;
-    position: relative;
-    outline: 0;
-    padding: 15px 15px 0;
-    overflow: hidden;
-    margin-left: 38.33%; /*(modification)*/
-    margin-right: 35%; /*(modification)*/
+	background: white;
+	border-radius: 4px;
+	position: relative;
+	outline: 0;
+	padding: 15px 15px 0;
+	overflow: hidden;
+	margin-left: 38.33%; /*(modification)*/
+	margin-right: 35%; /*(modification)*/
 }
+
 .feedback-popup #feedback {
 	background: #273142;
 	border: 1px solid #303c4e;
@@ -1448,6 +1626,7 @@ font-size: 14px;
 	margin-bottom: 20px;
 	color: #fff;
 }
+
 .feedback-popup h3 {
 	font-size: 20px;
 	margin-bottom: 13px;
@@ -1471,4 +1650,88 @@ font-size: 14px;
 	line-height: normal;
 	padding-top: 9px;
 	float: right;
+}
+
+@media only screen and (max-width: 960px) {
+	.fc-right .fc-button-group {
+	    display: none;
+	}
+	button.ev-popup {
+	    margin-bottom: 20px;
+	}
+	.fc .fc-toolbar h2 {
+    margin-top: 0;
+    clear: none;
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 27px;
+    margin-top: 9px;
+    color: #354052;
+    }
+	button.ev-popup {
+	    position: absolute;
+	    left: 16px;
+	    top: -53px;
+	    right: 0;
+	    margin: 0 auto;
+	    margin-left: 0 !important;
+	}
+	.chat-left {
+	    border-right: 1px solid #e6e9ec;
+	    float: left;
+	    width: 100%;
+	}
+.chat-right {
+    float: left;
+    width: 100%;
+}
+#chat-section .ui-tabs .ui-tabs-nav li a {
+    font-size: 0.8em;
+}
+.inline-info .info {
+    display: inline-block;
+    width: 100% !important;
+    float: left;
+    padding-right: 0;
+    /* margin-bottom: 21px; */
+}
+.user-status-right {
+    padding: 20px 3%;
+    border-bottom: 1px solid #e6e9ec;
+    background: #efefef;
+    margin-top: 0px;
+}
+#send, #new-message {
+    background: #2097ef;
+    text-transform: capitalize;
+    width: auto;
+    border-radius: 5px;
+    font-size: 10px;
+}
+#chat-message{
+	box-sizing: border-box;
+}
+#cancel {
+    font-size: 9px;
+}
+.chat-repeater .user-img {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px;
+    float: left;
+}
+.user-info {
+    font-size: 11px;
+    color: #585d68;
+    margin-top: -7px;
+    display: inherit;
+}
+.chat-repeater p {
+    margin: 0;
+    font-size: 10px;
+    color: #585d68;
+    margin-top: -7px;
+}
 }

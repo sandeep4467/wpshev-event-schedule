@@ -1,29 +1,19 @@
+     
+
         <?php 
-
-        $client_id = get_current_user_id();
-
+        $instructor_id = get_current_user_id();
         global $wpdb;
-
-        $query = "SELECT * FROM {$wpdb->prefix}instructor_data WHERE `assigned_client_id` = $client_id  AND `status` = 'assigned'";
-
+        $query = "SELECT * FROM {$wpdb->prefix}instructor_data WHERE `instructor_id` = $instructor_id  AND `status` = 'assigned'";
         $results = $wpdb->get_row( $query, OBJECT );
+        $client_id = $results->assigned_client_id;
 
-        if (is_null($results)) {
-            echo "No instructor has been assigned you yet!!";
-        }else{
         ?>
-        <?php $instructor_id = $results->instructor_id; ?>
-        <?php 
-        $d=strtotime($results->start_date);
-        $start_date = date("Y-m-d", $d);
-        ?>
-
         <?php 
 
         $user = wp_get_current_user();
 
-        if ( in_array( 'subscriber', (array) $user->roles ) ) { ?>
-            <input type="hidden" name="job_start_date" id="job_start_date" value="<?php echo $start_date; ?>">
+        if ( in_array( 'fit_instructor', (array) $user->roles ) ) { ?>
+
             <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
 
             <input type="hidden" name="instructor_id" value="<?php echo $instructor_id; ?>">
@@ -60,21 +50,17 @@
 
         <input type="hidden" name="user_pic" value="<?php echo $avatar; ?>">
 
+        <div class="welcome-message">
 
-
-        <div id="wpshev-loader">
-
-            <img src="<?php echo plugins_url('/core/assets/img/ajax-loader.gif', WPSHEV_PLUGIN_FILE); ?>">
-
-            <span>Hold on! calendar is loading...</span>
-
+         <div class="message-col">
+           <h2>Please click on proceed button.</h2>
+         </div>
+        <div class="right-col">
+            <a href="javascript:void(0)" class="proceed-to-start" id="proceed-to-start-by-instructor">Proceed to start</a>
         </div>
-
-        <div id='calendar'>
-
         </div>
-
-        <div id="chat-section">
+        <div class="clear"></div>
+        <div id="chat-section" style="margin-top: 55px;">
 
             <?php 
 
@@ -118,7 +104,7 @@
 
                 <div id="client-information">
 
-                    <h2>My Information <a class="info-edit" href="<?php echo get_the_permalink( 16211 ) ?>">Edit Information</a></h2>
+                    <h2>My Information <a class="info-edit" href="iump-account-page/?ihc_ap_menu=profile">Edit Information</a></h2>
 
                     <div class="client-information-wrap">
 
@@ -219,16 +205,17 @@
                 <div class="user-status-right">
 
                 <span class="user_name"><?php echo $instructor->first_name . ' ' . $instructor->last_name; ?></span><span class="status" title="Offline"></span>    
-                 <button id="new-message">New Message</button>
+                <button id="new-message">New Message</button>
                 </div>
 
                 <div class="chat-window" id="chat-window">
 
                     <div class="user-chat msg_container_base" id="user-chat">
 
+
+
                     </div>
 
-                   
 
                     <div class="chat-footer" style="display: none;">
 
@@ -253,124 +240,6 @@
         </div>
 
 
-
-        <!-- dialog itself, mfp-hide class is required to make dialog hidden -->
-
-        <div class="wpshev-popup-outer">
-
-        <div id="wpshev-custom-popup" class="wpshev-custom-popup">
-
-            <h1>Add New Event</h1>
-
-             <button class="ev-popup-close"><i class="fa fa-times" aria-hidden="true"></i></button>
-
-            <form id="ev-add-event">
-
-                <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
-
-                <div class="ev-form-row">
-
-                <input type="text" name="event_title" placeholder="Event Title" id="event_title">
-
-                <div class="toe-wrapper">
-
-                <span class="toe-label">Type of Event</span>
-
-                <select name="type-of-event" class="meal-active">
-
-                    <option value="meal" class="meal">Meal</option>
-
-                    <option value="rest" class="rest">Rest</option>
-
-                    <option value="workout" class="workout">Workout</option>
-
-                </select>
-
-                   </div>
-
-                </div>
-
-                <div class="ev-form-row">
-
-                    <div class="ev-form-inline">
-
-                    <div id="mdp-demo"></div>
-
-                    <input id="event-start-date" type="text" placeholder="Select Dates" name="event-start-date" class="datepicker" readonly="">
-
-                    </div>
-
-                 <div class="ev-form-inline custom-checkbox">
-
-                    <input id="event-start-time" type="text" placeholder="Select Time" name="event-start-time" class="datepicker" readonly="">
-
-                    <label class="checkbox-container">All Day Event
-
-                      <input type="checkbox" checked="checked">
-
-                      <span class="checkmark"></span>
-
-                    </label>
-
-                 </div>
-
-                </div>
-
-                <div class="clear"></div>
-
-                 <div class="ev-form-row wp-editor">
-
-                    <label>Add Even Content Information</label>
-
-                <?php 
-
-                $content = '';
-
-                $editor_id = 'kv_frontend_editor';
-
-                $settings =   array(
-
-                    'wpautop' => true, // use wpautop?
-
-                    'media_buttons' => true, // show insert/upload button(s)
-
-                    'textarea_name' => $editor_id, // set the textarea name to something different, square brackets [] can be used here
-
-                    'textarea_rows' => 30, // rows="..."
-
-                    'tabindex' => '',
-
-                    'editor_css' => '', //  extra styles for both visual and HTML editors buttons, 
-
-                    'editor_class' => '', // add extra class(es) to the editor textarea
-
-                    'teeny' => false, // output the minimal editor config used in Press This
-
-                    'dfw' => false, // replace the default fullscreen with DFW (supported on the front-end in WordPress 3.4)
-
-                    'tinymce' => true, // load TinyMCE, can be used to pass settings directly to TinyMCE using an array()
-
-                    'quicktags' => true // load Quicktags, can be used to pass settings directly to Quicktags using an array()
-
-                );
-
-                ?>
-
-                  <?php wp_editor( $content, $editor_id, $settings = array() ); ?>
-
-                  </div>
-
-                <input type="submit" name="submit" value="Add Event In Calendar">
-
-               <div class="clear"></div>
-
-            </form>
-
-        </div>
-
-         </div>
-
-        <div class="wpshev-custom-popup-overlay"></div>
 
         <script type="text/javascript">
 
@@ -405,7 +274,7 @@
             }); 
 
             jQuery('#new-message').click(function(){
-
+                jQuery(this).hide();
                 jQuery('.chat-footer').fadeIn();
 
                 jQuery('#user-chat').css('max-height' , '371px');
@@ -421,6 +290,7 @@
                 jQuery('#send').prop("disabled", true);
 
                 jQuery('#user-chat').css('max-height' , '477px');
+                jQuery('#new-message').show();
 
             });  
 
@@ -540,7 +410,16 @@
 
                             });
 
-            }      
+            }  
 
+            jQuery('body').on('click','#new-message',function(){
+                jQuery('html, body').animate({
+                    scrollTop: $("#chat-message").offset().top - 150
+                }, 2000);
+            });
         </script>
-<?php } ?>
+
+
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
